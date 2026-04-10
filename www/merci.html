@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Merci | Assurator.ch</title>
+        <meta
+            name="description"
+            content="Merci pour votre demande. L'équipe Assurator.ch revient vers vous avec une comparaison d'assurances personnalisée."
+        />
+        <link rel="canonical" href="https://assurator.ch/merci.html" />
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            :root {
+                --primary-navy: #123b66;
+                --secondary-blue: #2f6db2;
+                --bg-main: #ffffff;
+                --bg-surface: #f5f7fa;
+                --border: #d9e1ea;
+                --text-primary: #15202b;
+                --text-secondary: #6b7785;
+                --cta-accent: #c93a3a;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                min-height: 100vh;
+                font-family: "Inter", sans-serif;
+                background: var(--bg-surface);
+                color: var(--text-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1rem;
+            }
+
+            .thankyou-shell {
+                width: min(860px, 100%);
+                border: 1px solid var(--border);
+                border-radius: 16px;
+                background: #fff;
+                overflow: hidden;
+            }
+
+            .thankyou-head {
+                background: var(--primary-navy);
+                color: #fff;
+                padding: 1.5rem 1.2rem;
+                text-align: center;
+                border-bottom: 1px solid rgba(217, 225, 234, 0.3);
+            }
+
+            .check-circle {
+                width: 56px;
+                height: 56px;
+                border-radius: 999px;
+                background: rgba(255, 255, 255, 0.15);
+                border: 1px solid rgba(255, 255, 255, 0.35);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                margin-bottom: 0.65rem;
+            }
+
+            .thankyou-head h1 {
+                margin: 0;
+                font-size: clamp(1.45rem, 2.8vw, 2rem);
+                font-weight: 800;
+            }
+
+            .thankyou-head p {
+                margin: 0.42rem 0 0;
+                font-size: 0.97rem;
+                color: #d9e7f4;
+            }
+
+            .thankyou-body {
+                padding: 1.2rem;
+            }
+
+            .lead-text {
+                margin: 0;
+                color: var(--text-secondary);
+                font-size: 0.96rem;
+                line-height: 1.55;
+            }
+
+            .stats-grid {
+                margin-top: 1rem;
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 0.65rem;
+            }
+
+            .stat-card {
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 0.8rem;
+            }
+
+            .stat-label {
+                margin: 0;
+                font-size: 0.78rem;
+                color: var(--text-secondary);
+            }
+
+            .stat-value {
+                margin: 0.35rem 0 0;
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--primary-navy);
+            }
+
+            .support-box {
+                margin-top: 1rem;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                background: var(--bg-surface);
+                padding: 0.95rem;
+            }
+
+            .support-box p {
+                margin: 0;
+            }
+
+            .support-label {
+                font-size: 0.75rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--text-secondary);
+            }
+
+            .support-email {
+                margin-top: 0.4rem;
+                font-size: 1.02rem;
+                font-weight: 700;
+                color: var(--primary-navy);
+            }
+
+            .support-hours {
+                margin-top: 0.25rem;
+                font-size: 0.86rem;
+                color: var(--text-secondary);
+            }
+
+            .thankyou-actions {
+                margin-top: 1.05rem;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                gap: 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            .back-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.35rem;
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: var(--secondary-blue);
+            }
+
+            .back-link:hover {
+                text-decoration: underline;
+            }
+
+            .mail-link {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                border: none;
+                background: var(--cta-accent);
+                color: #fff;
+                font-weight: 700;
+                font-size: 0.88rem;
+                padding: 0.66rem 0.9rem;
+            }
+
+            .mail-link:hover {
+                opacity: 0.92;
+            }
+
+            @media (max-width: 760px) {
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
+
+                .thankyou-actions {
+                    flex-direction: column-reverse;
+                    align-items: stretch;
+                }
+
+                .mail-link {
+                    width: 100%;
+                    justify-content: center;
+                }
+            }
+        </style>
+
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag("consent", "default", {
+                ad_storage: "denied",
+                analytics_storage: "denied",
+                ad_user_data: "denied",
+                ad_personalization: "denied",
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.26.0/tarteaucitron.min.js"></script>
+        <script>
+            function getTacConsentDecision() {
+                if (window.tarteaucitron && window.tarteaucitron.state && typeof window.tarteaucitron.state.googletagmanager === "boolean") {
+                    return window.tarteaucitron.state.googletagmanager;
+                }
+
+                var match = document.cookie.match(/(?:^|;\s*)tarteaucitron=([^;]*)/);
+                if (!match) return null;
+
+                var value = decodeURIComponent(match[1] || "");
+
+                if (value && value.charAt(0) === "{") {
+                    try {
+                        var parsed = JSON.parse(value);
+                        if (parsed && typeof parsed.googletagmanager === "boolean") {
+                            return parsed.googletagmanager;
+                        }
+                    } catch (_error) {}
+                }
+
+                if (/(?:^|[!&,;])googletagmanager=true(?:[!&,;]|$)/.test(value)) return true;
+                if (/(?:^|[!&,;])googletagmanager=false(?:[!&,;]|$)/.test(value)) return false;
+
+                return null;
+            }
+
+            var lastConsentState = null;
+
+            function syncConsentFromTac() {
+                var consentGranted = getTacConsentDecision();
+                if (consentGranted === null) return;
+
+                var nextState = consentGranted ? "granted" : "denied";
+                if (lastConsentState === nextState) return;
+                lastConsentState = nextState;
+
+                gtag("consent", "update", {
+                    ad_storage: nextState,
+                    analytics_storage: nextState,
+                    ad_user_data: nextState,
+                    ad_personalization: nextState,
+                });
+            }
+
+            tarteaucitron.init({
+                privacyUrl: "",
+                bodyPosition: "bottom",
+                hashtag: "#tarteaucitron",
+                cookieName: "tarteaucitron",
+                orientation: "bottom",
+                groupServices: false,
+                showDetailsOnClick: true,
+                serviceDefaultState: "wait",
+                showAlertSmall: false,
+                cookieslist: false,
+                closePopup: false,
+                showIcon: true,
+                iconPosition: "BottomRight",
+                adblocker: false,
+                DenyAllCta: true,
+                AcceptAllCta: true,
+                highPrivacy: true,
+                alwaysNeedConsent: true,
+                handleBrowserDNTRequest: false,
+                removeCredit: true,
+                moreInfoLink: true,
+                useExternalCss: false,
+                useExternalJs: false,
+                mandatory: true,
+                mandatoryCta: true,
+            });
+
+            tarteaucitron.user.googletagmanagerId = 'GTM-K268V5RW';
+            (tarteaucitron.job = tarteaucitron.job || []).push("googletagmanager");
+
+            document.addEventListener("click", function (event) {
+                var target = event.target;
+                if (!target) return;
+                if (target.closest("#tarteaucitronRoot")) {
+                    window.setTimeout(syncConsentFromTac, 100);
+                }
+            });
+
+            var syncAttempts = 0;
+            var syncTimer = window.setInterval(function () {
+                syncConsentFromTac();
+                syncAttempts += 1;
+                if (syncAttempts >= 30) {
+                    window.clearInterval(syncTimer);
+                }
+            }, 500);
+
+            window.setTimeout(syncConsentFromTac, 0);
+        </script>
+    </head>
+
+    <body>
+        <div class="thankyou-shell">
+            <header class="thankyou-head">
+                <span class="check-circle">
+                    <i class="fa-solid fa-check"></i>
+                </span>
+                <h1>Merci pour votre demande</h1>
+                <p>Nous préparons votre comparaison d'assurances personnalisée.</p>
+            </header>
+
+            <div class="thankyou-body">
+                <p class="lead-text">
+                    Votre dossier a bien été reçu. Un conseiller vous contacte sous 24 à 48 heures ouvrées pour valider vos besoins et vous transmettre une synthèse claire des options pertinentes.
+                </p>
+
+                <div class="stats-grid">
+                    <article class="stat-card">
+                        <p class="stat-label">Délai de traitement</p>
+                        <p class="stat-value">24-48h ouvrées</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <p class="stat-label">Mode d'accompagnement</p>
+                        <p class="stat-value">Conseiller dédié</p>
+                    </article>
+
+                    <article class="stat-card">
+                        <p class="stat-label">Coût du service</p>
+                        <p class="stat-value">100% gratuit</p>
+                    </article>
+                </div>
+
+                <div class="support-box">
+                    <p class="support-label">Besoin d'une réponse rapide ?</p>
+                    <p class="support-email">info@assurator.ch</p>
+                    <p class="support-hours">Lundi à vendredi, 8h00 - 18h00</p>
+                </div>
+
+                <div class="thankyou-actions">
+                    <a href="index.html" class="back-link">&larr; Retourner sur Assurator.ch</a>
+                    <a href="mailto:info@assurator.ch" class="mail-link">Contacter un conseiller</a>
+                </div>
+            </div>
+        </div>
+
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+        ></script>
+        <script>
+            (function () {
+                var raw = window.sessionStorage.getItem('_assr_ec');
+                var ecData = null;
+                var conversionSent = false;
+                var pushAttempts = 0;
+                var pushTimer = null;
+
+                if (raw) {
+                    try { ecData = JSON.parse(raw); } catch (_) {}
+                }
+
+                function pushConversionEventIfConsented() {
+                    if (conversionSent) return;
+                    if (typeof getTacConsentDecision !== 'function') return;
+                    if (getTacConsentDecision() !== true) return;
+
+                    var payload = { event: 'conversion_formulaire' };
+                    if (ecData) payload.enhanced_conversion_data = ecData;
+
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push(payload);
+                    window.sessionStorage.removeItem('_assr_ec');
+                    conversionSent = true;
+
+                    if (pushTimer) {
+                        window.clearInterval(pushTimer);
+                        pushTimer = null;
+                    }
+                }
+
+                pushConversionEventIfConsented();
+
+                pushTimer = window.setInterval(function () {
+                    pushConversionEventIfConsented();
+                    pushAttempts += 1;
+                    if (conversionSent || pushAttempts >= 30) {
+                        window.clearInterval(pushTimer);
+                        pushTimer = null;
+                    }
+                }, 500);
+            })();
+        </script>
+    </body>
+</html>
