@@ -3,891 +3,428 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Assurator.ch | Comparez vos primes d'assurance maladie en Suisse</title>
-        <meta
-            name="description"
-            content="Comparez vos primes d'assurance maladie en Suisse. Recevez gratuitement une comparaison adaptée à votre profil, sans engagement."
-        />
-        <link rel="canonical" href="https://assurator.ch/" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="Assurator.ch" />
-        <meta property="og:title" content="Assurator.ch | Comparez vos primes d'assurance maladie en Suisse" />
-        <meta
-            property="og:description"
-            content="Une landing institutionnelle: simple, rassurante, et orientée comparaison gratuite en Suisse."
-        />
-        <meta property="og:url" content="https://assurator.ch/" />
-
-        <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-            rel="stylesheet"
-        />
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
-
+        <title>Home</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+        <script>
+            tailwind.config = {
+                theme: {
+                    extend: {
+                        fontFamily: {
+                            sans: ["Inter", "sans-serif"],
+                        },
+                        colors: {
+                            brand: {
+                                50: "#eff6ff",
+                                100: "#dbeafe",
+                                200: "#bfdbfe",
+                                300: "#93c5fd",
+                                400: "#60a5fa",
+                                500: "#3b82f6",
+                                600: "#2563eb",
+                                700: "#1d4ed8",
+                                800: "#1e40af",
+                                900: "#1e3a8a",
+                                950: "#172554",
+                            },
+                            accent: {
+                                500: "#ef4444", // Keeping the red energy but refined
+                                600: "#dc2626",
+                            },
+                        },
+                    },
+                },
+            };
+            window.FontAwesomeConfig = { autoReplaceSvg: "nest" };
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <style>
-            :root {
-                --primary-navy: #123b66;
-                --secondary-blue: #2f6db2;
-                --bg-main: #ffffff;
-                --bg-surface: #f5f7fa;
-                --border: #d9e1ea;
-                --text-primary: #15202b;
-                --text-secondary: #6b7785;
-                --cta-accent: #c93a3a;
-                --container: 1120px;
-                --radius-card: 14px;
-                --radius-control: 12px;
+            ::-webkit-scrollbar {
+                width: 8px;
             }
-
-            * {
-                box-sizing: border-box;
+            ::-webkit-scrollbar-track {
+                background: #f1f1f1;
             }
-
-            body {
-                margin: 0;
-                font-family: "Inter", sans-serif;
-                color: var(--text-primary);
-                background: var(--bg-main);
-                line-height: 1.5;
-                -webkit-font-smoothing: antialiased;
-                text-rendering: optimizeLegibility;
+            ::-webkit-scrollbar-thumb {
+                background: #cbd5e1;
+                border-radius: 4px;
             }
-
-            a {
-                color: inherit;
-                text-decoration: none;
+            ::-webkit-scrollbar-thumb:hover {
+                background: #94a3b8;
             }
-
-            img {
-                max-width: 100%;
-                display: block;
+            .gradient-bg {
+                background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
             }
-
-            .container {
-                width: min(var(--container), calc(100% - 2.2rem));
-                margin-inline: auto;
+            .glass-panel {
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
             }
-
-            .site-header {
-                position: sticky;
-                top: 0;
-                z-index: 40;
-                background: #ffffff;
-                border-bottom: 1px solid var(--border);
+            .input-field {
+                transition: all 0.2s ease;
+                border: 1px solid #e2e8f0;
             }
-
-            .header-inner {
-                min-height: 74px;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 1rem;
-                padding: 0.5rem 0;
+            .input-field:focus {
+                border-color: #3b82f6;
+                box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                outline: none;
             }
-
-            .brand {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.72rem;
+            .selection-card {
+                transition: all 0.2s ease;
             }
-
-            .brand img {
-                width: 40px;
-                height: 40px;
-                object-fit: contain;
+            .selection-card:hover {
+                transform: translateY(-2px);
+                border-color: #3b82f6;
             }
-
-            .brand-main {
-                display: block;
-                font-size: 1.2rem;
-                font-weight: 800;
-                letter-spacing: -0.02em;
-                line-height: 1.1;
-                color: var(--text-primary);
+            .selection-card.selected {
+                border-color: #3b82f6;
+                background-color: #eff6ff;
             }
-
-            .brand-main span {
-                color: var(--primary-navy);
-            }
-
-            .brand-sub {
-                display: block;
-                margin-top: 0.12rem;
-                color: var(--text-secondary);
-                font-size: 0.79rem;
-                font-weight: 500;
-            }
-
-            .header-right {
-                text-align: right;
-            }
-
-            .header-contact {
-                display: block;
-                color: var(--primary-navy);
-                font-size: 0.94rem;
-                font-weight: 700;
-                line-height: 1.2;
-            }
-
-            .header-meta {
-                display: block;
-                margin-top: 0.16rem;
-                color: var(--text-secondary);
-                font-size: 0.78rem;
-                font-weight: 500;
-            }
-
-            .hero {
-                background: linear-gradient(to bottom, #ffffff 0%, #f5f7fa 100%);
-                border-bottom: 1px solid var(--border);
-                padding: 1.5rem 0 1.3rem;
-            }
-
-            .hero-grid {
-                display: grid;
-                grid-template-columns: 1.04fr 0.96fr;
-                gap: 1.5rem;
-                align-items: start;
-            }
-
-            .hero-copy {
-                padding-top: 0.18rem;
-            }
-
-            .hero-kicker {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.38rem;
-                font-size: 0.79rem;
-                font-weight: 600;
-                color: var(--primary-navy);
-                background: #edf3fa;
-                border: 1px solid #d6e4f3;
-                border-radius: 999px;
-                padding: 0.3rem 0.66rem;
-            }
-
-            .hero-copy h1 {
-                margin: 0.78rem 0 0.62rem;
-                font-size: clamp(1.8rem, 2.9vw, 2.58rem);
-                line-height: 1.15;
-                letter-spacing: -0.02em;
-                font-weight: 800;
-                color: var(--text-primary);
-                max-width: 17ch;
-            }
-
-            .hero-lead {
-                margin: 0;
-                color: var(--text-secondary);
-                font-size: 1rem;
-                max-width: 58ch;
-            }
-
-            .hero-points {
-                margin: 1rem 0 0;
-                padding: 0;
-                list-style: none;
-                display: grid;
-                gap: 0.58rem;
-            }
-
-            .hero-points li {
-                display: flex;
-                align-items: flex-start;
-                gap: 0.45rem;
-                color: var(--text-primary);
-                font-size: 0.91rem;
-                font-weight: 500;
-            }
-
-            .hero-points i {
-                color: var(--primary-navy);
-                margin-top: 0.07rem;
-            }
-
             .assurator-form {
-                background: #ffffff;
-                border: 1px solid var(--border);
-                border-radius: var(--radius-card);
-                padding: 1rem;
+                position: relative;
             }
-
-            .form-heading {
-                margin: 0 0 0.34rem;
-                color: var(--primary-navy);
-                font-size: 1.04rem;
-                font-weight: 700;
+            .assurator-form .progress-wrapper {
+                margin-bottom: 1.5rem;
             }
-
-            .form-intent {
-                margin: 0 0 0.76rem;
-                color: var(--text-secondary);
-                font-size: 0.8rem;
-                font-weight: 600;
-            }
-
-            .progress-wrapper {
-                margin-bottom: 0.9rem;
-            }
-
-            .progress-bar {
+            .assurator-form .progress-bar {
                 height: 6px;
-                background: #e5eaf2;
+                background: #e2e8f0;
                 border-radius: 999px;
                 overflow: hidden;
             }
-
-            #progress-bar-fill {
+            .assurator-form #progress-bar-fill {
                 width: 50%;
                 height: 100%;
-                background: var(--secondary-blue);
-                transition: width 0.3s ease;
+                background: linear-gradient(90deg, #ef4444, #dc2626);
+                transition: width 0.4s ease;
             }
-
-            .progress-steps {
-                margin-top: 0.5rem;
+            .assurator-form .progress-steps {
                 display: flex;
                 justify-content: space-between;
-                color: var(--text-secondary);
-                font-size: 0.76rem;
+                margin-top: 0.75rem;
+                font-size: 0.75rem;
                 font-weight: 600;
+                color: #94a3b8;
             }
-
-            .form-step h3 {
-                margin: 0;
-                color: var(--text-primary);
-                font-size: 1.06rem;
-                font-weight: 700;
-            }
-
-            .form-step-subtitle {
-                margin: 0.3rem 0 0.75rem;
-                color: var(--text-secondary);
-                font-size: 0.85rem;
-            }
-
-            .product-grid {
-                display: grid;
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-                gap: 0.65rem;
-                margin-bottom: 0.72rem;
-            }
-
-            .product-option {
-                border: 1px solid var(--border);
-                border-radius: 12px;
-                background: #ffffff;
-                padding: 0.62rem;
-                min-height: 88px;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 0.38rem;
-                cursor: pointer;
-                text-align: center;
-                transition: border-color 0.15s ease, background-color 0.15s ease;
-            }
-
-            .product-option img {
-                width: 28px;
-                height: 28px;
-                object-fit: contain;
-            }
-
-            .product-option strong {
-                color: var(--text-primary);
-                font-size: 0.82rem;
-                font-weight: 600;
-                line-height: 1.25;
-            }
-
-            .product-option.is-selected {
-                border-color: var(--secondary-blue);
-                background: #f4f8fd;
-            }
-
-            .trust-proof-strip {
-                margin-top: 0.8rem;
-                border: 1px solid var(--border);
-                border-radius: 12px;
-                background: #ffffff;
-                padding: 0.9rem;
-            }
-
-            .proof-label {
-                margin: 0 0 0.5rem;
-                color: var(--text-secondary);
-                font-size: 0.78rem;
-                font-weight: 600;
-            }
-
-            .logo-row {
-                display: grid;
-                grid-template-columns: repeat(5, minmax(0, 1fr));
-                gap: 0.48rem;
-                align-items: center;
-            }
-
-            .logo-pill {
-                border: 1px solid var(--border);
-                border-radius: 10px;
-                background: #ffffff;
-                min-height: 48px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0.35rem 0.4rem;
-            }
-
-            .logo-pill img {
-                max-height: 24px;
-                width: auto;
-                object-fit: contain;
-            }
-
-            .form-row {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.7rem;
-                margin-bottom: 0.72rem;
-            }
-
-            .form-group {
-                flex: 1;
-                min-width: 170px;
-            }
-
-            .assurator-form label {
-                display: block;
-                margin-bottom: 0.3rem;
-                color: var(--text-primary);
-                font-size: 0.84rem;
-                font-weight: 600;
-            }
-
-            .assurator-form input,
-            .assurator-form select {
-                width: 100%;
-                border: 1px solid var(--border);
-                border-radius: var(--radius-control);
-                background: #ffffff;
-                color: var(--text-primary);
-                padding: 0.73rem 0.82rem;
-                font-size: 0.9rem;
-                transition: border-color 0.15s ease, box-shadow 0.15s ease;
-            }
-
-            .assurator-form input:focus,
-            .assurator-form select:focus {
-                outline: none;
-                border-color: var(--secondary-blue);
-                box-shadow: 0 0 0 3px rgba(47, 109, 178, 0.14);
-            }
-
-            .input-help {
-                margin-top: 0.26rem;
-                color: var(--text-secondary);
-                font-size: 0.74rem;
-            }
-
-            .error-message {
-                display: none;
-                color: #a82222;
-                font-size: 0.76rem;
-                margin-top: 0.28rem;
-            }
-
-            .checkbox-container {
-                display: flex;
-                align-items: flex-start;
-                gap: 0.54rem;
-            }
-
-            .checkbox-container input {
-                width: 17px;
-                height: 17px;
-                margin-top: 0.14rem;
-                accent-color: var(--primary-navy);
-                flex: 0 0 auto;
-            }
-
-            .checkbox-label {
-                margin: 0;
-                color: var(--text-secondary);
-                font-size: 0.84rem;
-                line-height: 1.45;
-            }
-
-            .form-buttons-container {
-                margin-top: 0.88rem;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 0.66rem;
-                flex-wrap: wrap;
-            }
-
-            .back-btn,
-            .step-btn {
-                border-radius: 10px;
-                font-size: 0.88rem;
-                font-weight: 600;
-                padding: 0.7rem 0.95rem;
-                min-height: 44px;
-                cursor: pointer;
-            }
-
-            .back-btn {
-                border: 1px solid var(--border);
-                background: #ffffff;
-                color: var(--text-primary);
-            }
-
-            .step-btn {
-                border: 1px solid var(--primary-navy);
-                background: var(--primary-navy);
-                color: #ffffff;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.4rem;
-            }
-
-            .compare-btn {
-                border: none;
-                border-radius: 11px;
-                background: var(--cta-accent);
-                color: #ffffff;
-                font-size: 0.89rem;
-                font-weight: 700;
-                padding: 0.78rem 1.06rem;
-                min-height: 45px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.42rem;
-                cursor: pointer;
-            }
-
-            .compare-btn:disabled {
-                opacity: 0.72;
-                cursor: not-allowed;
-            }
-
-            .step-hint {
-                margin: 0.44rem 0 0;
-                color: var(--text-secondary);
-                font-size: 0.76rem;
-                text-align: right;
-            }
-
-            #thank-you-message {
-                display: none;
-                margin-top: 0.8rem;
-                border: 1px solid #bad2c1;
-                border-radius: 12px;
-                background: #f3faf6;
-                padding: 0.75rem;
-            }
-
-            #thank-you-message h4 {
-                margin: 0;
-                font-size: 0.96rem;
-                color: #1f5d2f;
-            }
-
-            #thank-you-message p {
-                margin: 0.35rem 0 0;
-                font-size: 0.84rem;
-                color: #396049;
-            }
-
-            .trust-strip {
-                background: #ffffff;
-                border-bottom: 1px solid var(--border);
-                padding: 0.8rem 0;
-            }
-
-            .trust-strip-list {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                display: grid;
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-                gap: 0.48rem;
-            }
-
-            .trust-strip-list li {
+            .assurator-form .progress-steps span {
                 display: inline-flex;
                 align-items: center;
                 gap: 0.35rem;
-                color: var(--text-primary);
-                font-size: 0.81rem;
+            }
+            .assurator-form .insurance-cards-grid {
+                display: grid;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+            .assurator-form .insurance-card {
+                position: relative;
+                cursor: pointer;
+            }
+            .assurator-form button.insurance-card {
+                width: 100%;
+                border: 0;
+                background: transparent;
+                padding: 0;
+                text-align: inherit;
+            }
+            .assurator-form .insurance-card input[type="radio"] {
+                position: absolute;
+                opacity: 0;
+                pointer-events: none;
+            }
+            .assurator-form .card-content {
+                border: 2px solid #e2e8f0;
+                border-radius: 1rem;
+                padding: 1.25rem;
+                text-align: center;
+                transition: all 0.2s ease;
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                align-items: center;
+                background: #fff;
+                height: 100%;
+            }
+            .assurator-form .insurance-card input[type="radio"]:checked + .card-content {
+                border-color: #dc2626;
+                box-shadow: 0 10px 25px rgba(220, 38, 38, 0.15);
+                transform: translateY(-4px);
+            }
+            .assurator-form .insurance-card.product-option.is-selected .card-content {
+                border-color: #dc2626;
+                box-shadow: 0 10px 25px rgba(220, 38, 38, 0.15);
+                transform: translateY(-4px);
+            }
+            .assurator-form .icon-container {
+                width: 56px;
+                height: 56px;
+                border-radius: 999px;
+                background: #fee2e2;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .assurator-form .card-label {
                 font-weight: 600;
-            }
-
-            .trust-strip-list i {
-                color: var(--primary-navy);
-            }
-
-            .section {
-                padding: 2.5rem 0;
-            }
-
-            .section.surface {
-                background: var(--bg-surface);
-                border-top: 1px solid var(--border);
-                border-bottom: 1px solid var(--border);
-            }
-
-            .section-head {
-                max-width: 720px;
-                margin-bottom: 1rem;
-            }
-
-            .section-head h2 {
-                margin: 0;
-                color: var(--text-primary);
-                font-size: clamp(1.34rem, 2.3vw, 2rem);
-                line-height: 1.25;
-                letter-spacing: -0.01em;
-                font-weight: 800;
-            }
-
-            .section-head p {
-                margin: 0.43rem 0 0;
-                color: var(--text-secondary);
+                color: #0f172a;
                 font-size: 0.95rem;
             }
-
-            .grid-3,
-            .grid-2 {
-                display: grid;
-                gap: 0.7rem;
-            }
-
-            .grid-3 {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-
-            .grid-2 {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
-            }
-
-            .card {
-                background: #ffffff;
-                border: 1px solid var(--border);
-                border-radius: 14px;
-                padding: 1rem;
-            }
-
-            .card h3 {
-                margin: 0.38rem 0 0.32rem;
-                color: var(--text-primary);
-                font-size: 1rem;
-                font-weight: 700;
-            }
-
-            .card p {
-                margin: 0;
-                color: var(--text-secondary);
-                font-size: 0.9rem;
-            }
-
-            .step-number {
-                width: 32px;
-                height: 32px;
-                border-radius: 999px;
-                background: var(--primary-navy);
-                color: #ffffff;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 0.82rem;
-                font-weight: 700;
-            }
-
-            .final-cta {
-                background: var(--bg-surface);
-                border-top: 1px solid var(--border);
-                border-bottom: 1px solid var(--border);
-                padding: 2.1rem 0;
-            }
-
-            .final-cta-box {
-                border: 1px solid var(--border);
-                border-radius: 14px;
-                background: #ffffff;
-                padding: 1.4rem;
-                text-align: center;
-            }
-
-            .final-cta-box h2 {
-                margin: 0;
-                color: var(--text-primary);
-                font-size: clamp(1.24rem, 2.2vw, 1.82rem);
-                font-weight: 800;
-            }
-
-            .final-cta-box p {
-                margin: 0.45rem 0 1rem;
-                color: var(--text-secondary);
-                font-size: 0.92rem;
-            }
-
-            .final-btn {
-                border: none;
-                border-radius: 11px;
-                background: var(--cta-accent);
-                color: #ffffff;
-                font-size: 0.9rem;
-                font-weight: 700;
-                padding: 0.78rem 1.12rem;
-                min-height: 45px;
-                display: inline-flex;
-                align-items: center;
-                justify-content: center;
-                gap: 0.38rem;
-            }
-
-            .site-footer {
-                background: var(--primary-navy);
-                color: #d8e5f0;
-                padding: 1.95rem 0 1.02rem;
-            }
-
-            .footer-top {
-                display: grid;
-                grid-template-columns: 1.1fr 0.9fr 1fr;
-                gap: 0.9rem;
-            }
-
-            .footer-brand {
-                display: inline-flex;
-                align-items: center;
-                gap: 0.6rem;
-                color: #ffffff;
-                font-size: 1.1rem;
-                font-weight: 700;
-            }
-
-            .footer-brand img {
-                width: 34px;
-                height: 34px;
-                object-fit: contain;
-            }
-
-            .footer-desc {
-                margin: 0.5rem 0 0;
-                font-size: 0.88rem;
-                color: #d2e1ee;
-                max-width: 42ch;
-            }
-
-            .footer-title {
-                margin: 0;
-                color: #9eb8cf;
-                font-size: 0.79rem;
-                text-transform: uppercase;
-                letter-spacing: 0.08em;
-                font-weight: 700;
-            }
-
-            .footer-links {
-                margin: 0.48rem 0 0;
-                padding: 0;
-                list-style: none;
-                display: grid;
-                gap: 0.34rem;
-            }
-
-            .footer-links a {
-                color: #e7eef6;
-                font-size: 0.88rem;
-            }
-
-            .footer-bottom {
-                border-top: 1px solid rgba(217, 225, 234, 0.24);
-                margin-top: 0.95rem;
-                padding-top: 0.7rem;
+            .assurator-form .form-row {
                 display: flex;
-                justify-content: space-between;
+                gap: 1rem;
+                flex-wrap: wrap;
+                margin-bottom: 1.25rem;
+            }
+            .assurator-form .form-group {
+                flex: 1;
+                min-width: 220px;
+            }
+            .assurator-form label {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: #0f172a;
+                margin-bottom: 0.35rem;
+                display: block;
+            }
+            .assurator-form input,
+            .assurator-form select {
+                width: 100%;
+                padding: 0.85rem 1rem;
+                border-radius: 0.75rem;
+                border: 1.5px solid #e2e8f0;
+                background: #f8fafc;
+                font-size: 0.95rem;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            }
+            .assurator-form input:focus,
+            .assurator-form select:focus {
+                outline: none;
+                border-color: #2563eb;
+                box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+                background: #fff;
+            }
+            .assurator-form .checkbox-container {
+                display: flex;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            .assurator-form .checkbox-container input {
+                width: 18px;
+                height: 18px;
+                margin-top: 0.25rem;
+                accent-color: #dc2626;
+            }
+            .assurator-form .checkbox-label {
+                font-size: 0.9rem;
+                color: #475569;
+                line-height: 1.4;
+            }
+            .assurator-form .form-buttons-container {
+                display: flex;
+                gap: 1rem;
+                justify-content: center;
                 align-items: center;
-                gap: 0.6rem;
+                margin-top: 2rem;
                 flex-wrap: wrap;
             }
-
-            .footer-bottom p {
-                margin: 0;
-                font-size: 0.82rem;
-                color: #c2d3e3;
+            .assurator-form .back-btn {
+                border: none;
+                border-radius: 999px;
+                padding: 0.9rem 1.5rem;
+                font-weight: 600;
+                background: #e2e8f0;
+                color: #0f172a;
+                cursor: pointer;
+                transition: all 0.2s ease;
             }
-
-            .footer-contact {
-                color: #ffffff;
+            .assurator-form .back-btn:hover {
+                background: #cbd5f5;
+            }
+            .assurator-form .step-btn {
+                border: none;
+                border-radius: 999px;
+                padding: 1rem 1.9rem;
+                font-size: 0.95rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                background: linear-gradient(135deg, #ef4444, #b91c1c);
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.65rem;
+                cursor: pointer;
+                box-shadow: 0 16px 24px rgba(239, 68, 68, 0.32);
+            }
+            .assurator-form .compare-btn {
+                position: relative;
+                border: none;
+                border-radius: 999px;
+                padding: 1.1rem 2.5rem;
+                font-size: 1rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                background: linear-gradient(135deg, #ef4444, #b91c1c);
+                color: #fff;
+                display: inline-flex;
+                align-items: center;
+                gap: 0.75rem;
+                cursor: pointer;
+                overflow: hidden;
+                box-shadow: 0 20px 30px rgba(239, 68, 68, 0.35);
+            }
+            .assurator-form .compare-btn .btn-ripple {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(circle, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0));
+                opacity: 0;
+                transform: scale(0);
+                transition: transform 0.4s ease, opacity 0.4s ease;
+            }
+            .assurator-form .compare-btn:hover .btn-ripple {
+                opacity: 1;
+                transform: scale(2);
+            }
+            .assurator-form .error-message {
+                display: none;
+                color: #dc2626;
+                font-size: 0.8rem;
+                margin-top: 0.35rem;
+            }
+            .assurator-form .step-hint {
+                margin: 0.75rem 0 0;
+                font-size: 0.78rem;
+                font-weight: 600;
+                text-align: right;
+                color: #64748b;
+            }
+            .assurator-form #thank-you-message {
+                display: none;
+                text-align: center;
+                padding: 1rem;
+                background: #ecfdf5;
+                border: 1px solid #34d399;
+                border-radius: 1rem;
+                margin-top: 1.5rem;
+            }
+            .assurator-form #thank-you-message h4 {
+                font-size: 1.25rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                color: #065f46;
+            }
+            .assurator-form .trust-indicators {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                justify-content: center;
+                margin-top: 1.5rem;
                 font-size: 0.85rem;
                 font-weight: 600;
+                color: #475569;
             }
-
+            .assurator-form .trust-indicators i {
+                color: #dc2626;
+                margin-right: 0.35rem;
+            }
             .loading-overlay {
                 position: fixed;
                 inset: 0;
-                background: rgba(21, 32, 43, 0.56);
+                background: rgba(15, 23, 42, 0.65);
                 z-index: 70;
                 display: none;
                 align-items: center;
                 justify-content: center;
                 flex-direction: column;
-                gap: 0.8rem;
-                color: #f5f7fa;
+                gap: 1rem;
+                color: #f8fafc;
             }
-
-            .spinner {
-                width: 46px;
-                height: 46px;
+            .loading-overlay .spinner {
+                width: 56px;
+                height: 56px;
                 border-radius: 999px;
-                border: 4px solid rgba(245, 247, 250, 0.35);
-                border-top-color: #f5f7fa;
+                border: 5px solid rgba(248, 250, 252, 0.25);
+                border-top-color: #ef4444;
                 animation: spin 1s linear infinite;
             }
-
             @keyframes spin {
                 to {
                     transform: rotate(360deg);
                 }
             }
-
-            @media (max-width: 1024px) {
-                .hero-grid {
-                    grid-template-columns: 1fr;
-                    gap: 1rem;
+            .logo-marquee {
+                position: relative;
+                overflow: hidden;
+            }
+            .logo-marquee::after,
+            .logo-marquee::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                width: 80px;
+                pointer-events: none;
+            }
+            .logo-marquee::before {
+                left: 0;
+                background: linear-gradient(90deg, #fff, rgba(255, 255, 255, 0));
+            }
+            .logo-marquee::after {
+                right: 0;
+                background: linear-gradient(-90deg, #fff, rgba(255, 255, 255, 0));
+            }
+            .logo-track {
+                display: flex;
+                align-items: center;
+                gap: 3.5rem;
+                min-width: max-content;
+                animation: logo-scroll 32s linear infinite;
+            }
+            .logo-marquee:hover .logo-track {
+                animation-play-state: paused;
+            }
+            .logo-item {
+                flex: 0 0 auto;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 0.5rem 1rem;
+            }
+            .logo-item img {
+                height: 38px;
+                max-width: 140px;
+                object-fit: contain;
+                filter: grayscale(100%);
+                opacity: 0.7;
+                transition: opacity 0.3s ease, filter 0.3s ease, transform 0.3s ease;
+            }
+            .logo-marquee:hover .logo-item img {
+                filter: grayscale(0%);
+                opacity: 1;
+            }
+            @keyframes logo-scroll {
+                from {
+                    transform: translateX(0);
                 }
-
-                .hero-copy {
-                    order: 2;
-                }
-
-                .hero-form-column {
-                    order: 1;
-                }
-
-                .trust-strip-list,
-                .grid-3,
-                .grid-2,
-                .footer-top {
-                    grid-template-columns: 1fr;
+                to {
+                    transform: translateX(-50%);
                 }
             }
-
-            @media (max-width: 720px) {
-                .container {
-                    width: calc(100% - 1.1rem);
-                }
-
-                .header-inner {
-                    min-height: 58px;
-                    padding: 0.42rem 0;
-                    gap: 0.45rem;
-                }
-
-                .brand img {
-                    width: 32px;
-                    height: 32px;
-                }
-
-                .brand-main {
-                    font-size: 1rem;
-                }
-
-                .brand-sub {
-                    font-size: 0.7rem;
-                }
-
-                .header-contact {
-                    font-size: 0.78rem;
-                }
-
-                .header-meta {
-                    font-size: 0.66rem;
-                }
-
-                .hero {
-                    padding: 0.56rem 0 0.95rem;
-                }
-
-                .hero-copy {
-                    display: none;
-                }
-
-                .assurator-form {
-                    padding: 0.94rem;
-                }
-
-                .form-heading {
-                    font-size: 1.06rem;
-                }
-
-                .form-intent {
-                    margin-bottom: 0.58rem;
-                    font-size: 0.78rem;
-                }
-
-                .form-row {
+            @media (max-width: 640px) {
+                .assurator-form .form-row {
                     flex-direction: column;
-                    gap: 0.6rem;
                 }
-
-                .form-group {
+                .assurator-form .form-group {
                     min-width: 100%;
                 }
-
-                .product-grid {
+                .assurator-form .insurance-cards-grid {
                     grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .logo-row {
-                    grid-template-columns: repeat(2, minmax(0, 1fr));
-                }
-
-                .assurator-form label {
-                    font-size: 0.88rem;
-                }
-
-                .assurator-form input,
-                .assurator-form select {
-                    min-height: 52px;
-                    font-size: 1rem;
-                    padding: 0.86rem 0.88rem;
-                }
-
-                .progress-steps {
-                    font-size: 0.8rem;
-                }
-
-                .form-buttons-container {
-                    flex-direction: column-reverse;
-                    align-items: stretch;
-                }
-
-                .compare-btn,
-                .step-btn,
-                .back-btn {
-                    width: 100%;
-                }
-
-                .step-hint {
-                    text-align: left;
                 }
             }
         </style>
-
+        <!-- Consent default deny (must be before GTM) -->
         <script>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
@@ -900,6 +437,7 @@
                 ad_personalization: "denied",
             });
         </script>
+        <!-- Tarteaucitron cookie consent banner -->
         <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.26.0/tarteaucitron.min.js"></script>
         <script>
             function getTacConsentDecision() {
@@ -998,89 +536,149 @@
             window.setTimeout(syncConsentFromTac, 0);
         </script>
     </head>
-
-    <body>
-        <header class="site-header">
-            <div class="container header-inner">
-                <a href="#hero" class="brand" aria-label="Assurator.ch accueil">
-                    <img src="logosolo.png" alt="Logo Assurator" />
-                    <span>
-                        <span class="brand-main">Assurator<span>.ch</span></span>
-                        <span class="brand-sub">Comparateur d'assurance en Suisse</span>
-                    </span>
-                </a>
-
-                <div class="header-right" aria-label="Informations de contact">
-                    <span class="header-contact">Contact sur demande</span>
-                    <span class="header-meta">Gratuit &bull; Sans engagement</span>
+    <body class="font-sans text-slate-800 bg-slate-50 antialiased">
+        <!-- Navbar -->
+        <nav id="navbar" class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-md border-b border-slate-200 h-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <img src="logosolo.png" alt="Logo Assurator" class="w-10 h-10 object-contain" />
+                    <span class="text-2xl font-bold text-slate-900 tracking-tight">Assurator<span class="text-brand-600">.eu</span></span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Assurance Maladie</a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Assurance Vie</a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">À propos</a>
+                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Contact</a>
+                </div>
+                <div class="flex items-center gap-4">
+                    <button class="bg-brand-600 hover:bg-brand-700 text-white px-5 py-2.5 rounded-lg font-medium text-sm transition-all shadow-lg shadow-brand-500/20">Espace Client</button>
                 </div>
             </div>
-        </header>
+        </nav>
 
-        <main>
-            <section id="hero" class="hero">
-                <div class="container hero-grid">
-                    <div class="hero-copy">
-                        <span class="hero-kicker"><i class="fa-regular fa-circle-check"></i> Plateforme de comparaison suisse</span>
-                        <h1>Comparez vos primes d'assurance maladie en Suisse</h1>
-                        <p class="hero-lead">
-                            Indiquez votre localité, votre âge et votre franchise. Recevez gratuitement une comparaison adaptée à votre profil, sans
-                            engagement.
-                        </p>
+        <!-- Hero Section with Form -->
+        <section id="hero" class="relative pt-12 pb-10 lg:pt-24 lg:pb-16 overflow-hidden bg-slate-50">
+            <!-- Background Elements -->
+            <div class="absolute inset-0 z-0">
+                <div class="absolute top-0 left-0 w-full h-[600px] bg-gradient-to-b from-brand-50 to-slate-50"></div>
+                <div class="absolute right-0 top-20 w-1/2 h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+            </div>
 
-                        <ul class="hero-points">
-                            <li><i class="fa-solid fa-check"></i>Comparaison gratuite</li>
-                            <li><i class="fa-solid fa-check"></i>Réponse rapide</li>
-                            <li><i class="fa-solid fa-check"></i>Données traitées de manière confidentielle</li>
-                        </ul>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid lg:grid-cols-12 gap-8 items-start">
+                    <!-- Left Content: Value Prop -->
+                    <div class="hidden lg:block lg:col-span-5 pt-4 lg:pt-6 order-2 lg:order-1">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-semibold mb-6 border border-green-200">
+                            <i class="fa-solid fa-check-circle"></i>
+                            Comparateur certifié 2025
+                        </div>
+                        <h1 class="text-4xl lg:text-5xl font-extrabold text-slate-900 leading-tight mb-6">Économisez jusqu'à <span class="text-brand-600">30%</span> sur vos primes d'assurance</h1>
+                        <p class="text-lg text-slate-600 mb-8 leading-relaxed">Arrêtez de payer trop cher. Comparez gratuitement plus de 50 assureurs suisses en moins de 2 minutes et trouvez l'offre qui correspond vraiment à vos besoins.</p>
+
+                        <div class="flex flex-col gap-4 mb-10">
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-bolt"></i>
+                                </div>
+                                <span class="text-slate-700 font-medium">Résultats instantanés et transparents</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                                </div>
+                                <span class="text-slate-700 font-medium">Service 100% gratuit et sans engagement</span>
+                            </div>
+                            <div class="flex items-center gap-3">
+                                <div class="w-6 h-6 rounded-full bg-brand-100 text-brand-600 flex items-center justify-center text-xs">
+                                    <i class="fa-solid fa-user-shield"></i>
+                                </div>
+                                <span class="text-slate-700 font-medium">Vos données sont sécurisées et cryptées</span>
+                            </div>
+                        </div>
+
+                        <!-- Social Proof -->
+                        <div class="flex items-center gap-4 p-4 bg-white rounded-xl border border-slate-200 shadow-sm w-fit">
+                            <div class="flex -space-x-3">
+                                <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="User" />
+                                <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-2.jpg" alt="User" />
+                                <img class="w-10 h-10 rounded-full border-2 border-white object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-3.jpg" alt="User" />
+                                <div class="w-10 h-10 rounded-full border-2 border-white bg-brand-600 text-white text-xs flex items-center justify-center font-bold">+1k</div>
+                            </div>
+                            <div>
+                                <div class="flex text-yellow-400 text-xs mb-1"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                                <p class="text-xs font-medium text-slate-600">4.9/5 sur Trustpilot</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="hero-form-column">
-                        <div id="comparator-form" class="assurator-form">
-                            <p class="form-heading">Voir ma comparaison gratuite</p>
-                            <p class="form-intent">Étape 1 sur 2 &bull; Gratuit &bull; Sans engagement</p>
-
+                    <!-- Right Content: The "Wizard" Form -->
+                    <div class="lg:col-span-7 order-1 lg:order-2">
+                        <div id="comparator-form" class="assurator-form bg-white rounded-2xl shadow-2xl shadow-brand-900/10 p-6 lg:p-10 border border-slate-100 relative overflow-hidden">
                             <div class="progress-wrapper">
                                 <div class="progress-bar">
                                     <div id="progress-bar-fill"></div>
                                 </div>
                                 <div class="progress-steps">
-                                    <span>Étape 1</span>
-                                    <span>Étape 2</span>
+                                    <span><i class="fa-solid fa-circle text-rose-500 text-xs"></i> Étape 1</span>
+                                    <span><i class="fa-solid fa-circle text-slate-300 text-xs"></i> Étape 2</span>
                                 </div>
                             </div>
 
-                            <form id="lead-capture-form" method="POST" action="send_email.php" novalidate>
+                            <form id="lead-capture-form" class="space-y-6" method="POST" action="send_email.php" novalidate>
                                 <input type="hidden" id="product-type" name="product_type" value="LAMAL" />
 
                                 <div id="form-step-1" class="form-step" style="display: block">
-                                    <h3>Étape 1 - Votre profil d'assurance</h3>
-                                    <p class="form-step-subtitle">Renseignez les informations essentielles avant de continuer.</p>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-2">Quelle assurance souhaitez-vous comparer ?</h3>
+                                    <p class="text-sm text-slate-500 mb-6">Choisissez un produit puis indiquez votre profil pour continuer.</p>
 
-                                    <div class="product-grid" aria-label="Type d'assurance">
-                                        <button type="button" class="product-option is-selected" data-product-value="LAMAL">
-                                            <img src="assets/img/icons/icone_lamal.png" alt="Assurance LAMal" />
-                                            <strong>Assurance LAMal</strong>
+                                    <div class="insurance-cards-grid">
+                                        <button type="button" class="insurance-card product-option is-selected" data-product-value="LAMAL">
+                                            <div class="card-content">
+                                                <div class="icon-container">
+                                                    <img src="assets/img/icons/icone_lamal.png" alt="Assurance LAMal" class="w-10 h-10 object-contain" />
+                                                </div>
+                                                <span class="card-label">Assurance LAMal</span>
+                                            </div>
                                         </button>
-                                        <button type="button" class="product-option" data-product-value="LCA">
-                                            <img src="assets/img/icons/icone_lca.png" alt="Assurance LCA" />
-                                            <strong>Assurance LCA</strong>
+                                        <button type="button" class="insurance-card product-option" data-product-value="LCA">
+                                            <div class="card-content">
+                                                <div class="icon-container">
+                                                    <img src="assets/img/icons/icone_lca.png" alt="Assurance LCA" class="w-10 h-10 object-contain" />
+                                                </div>
+                                                <span class="card-label">Assurance LCA</span>
+                                            </div>
                                         </button>
-                                        <button type="button" class="product-option" data-product-value="PRENATALE">
-                                            <img src="assets/img/icons/icone_prenatale.png" alt="Assurance prénatale" />
-                                            <strong>Assurance prénatale</strong>
+                                        <button type="button" class="insurance-card product-option" data-product-value="PRENATALE">
+                                            <div class="card-content">
+                                                <div class="icon-container">
+                                                    <img src="assets/img/icons/icone_prenatale.png" alt="Assurance prenatale" class="w-10 h-10 object-contain" />
+                                                </div>
+                                                <span class="card-label">Assurance prenatale</span>
+                                            </div>
                                         </button>
-                                        <button type="button" class="product-option" data-product-value="NOUVEAU_RESIDENT">
-                                            <img src="assets/img/icons/icone_nouveauresident.png" alt="Nouveau résident" />
-                                            <strong>Nouveau résident</strong>
+                                        <button type="button" class="insurance-card product-option" data-product-value="NOUVEAU_RESIDENT">
+                                            <div class="card-content">
+                                                <div class="icon-container">
+                                                    <img src="assets/img/icons/icone_nouveauresident.png" alt="Nouveau resident" class="w-10 h-10 object-contain" />
+                                                </div>
+                                                <span class="card-label">Nouveau resident</span>
+                                            </div>
                                         </button>
-                                        <button type="button" class="product-option" data-product-value="VOYAGE">
-                                            <img src="assets/img/icons/icone_voyage.png" alt="Assurance voyage" />
-                                            <strong>Assurance voyage</strong>
+                                        <button type="button" class="insurance-card product-option" data-product-value="VOYAGE">
+                                            <div class="card-content">
+                                                <div class="icon-container">
+                                                    <img src="assets/img/icons/icone_voyage.png" alt="Assurance voyage" class="w-10 h-10 object-contain" />
+                                                </div>
+                                                <span class="card-label">Assurance voyage</span>
+                                            </div>
                                         </button>
-                                        <button type="button" class="product-option" data-product-value="ANIMAUX">
-                                            <img src="assets/img/icons/icone_animaux.png" alt="Assurance animaux" />
-                                            <strong>Assurance animaux</strong>
+                                        <button type="button" class="insurance-card product-option" data-product-value="ANIMAUX">
+                                            <div class="card-content">
+                                                <div class="icon-container">
+                                                    <img src="assets/img/icons/icone_animaux.png" alt="Assurance animaux" class="w-10 h-10 object-contain" />
+                                                </div>
+                                                <span class="card-label">Assurance animaux</span>
+                                            </div>
                                         </button>
                                     </div>
 
@@ -1088,12 +686,10 @@
                                         <div class="form-group">
                                             <label for="npa">Code postal (NPA)</label>
                                             <input type="text" id="npa" name="npa" placeholder="Ex: 1200" maxlength="4" pattern="\d{4}" required />
-                                            <p class="input-help">Format attendu: 4 chiffres.</p>
                                             <div class="error-message" id="error-npa">Code postal invalide (4 chiffres requis).</div>
                                         </div>
-
                                         <div class="form-group">
-                                            <label for="locality">Localité</label>
+                                            <label for="locality">Localite</label>
                                             <input type="text" id="locality" name="locality" placeholder="Ex: Genève" required />
                                             <div class="error-message" id="error-locality">Veuillez saisir votre localité.</div>
                                         </div>
@@ -1112,7 +708,6 @@
                                             </select>
                                             <div class="error-message" id="error-age-range">Veuillez sélectionner votre tranche d'âge.</div>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="franchise">Franchise actuelle</label>
                                             <select id="franchise" name="franchise" required>
@@ -1150,7 +745,6 @@
                                             </select>
                                             <div class="error-message" id="error-current_insurer">Veuillez sélectionner votre assureur actuel.</div>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="accident_coverage">Assurance accident incluse ? (facultatif)</label>
                                             <select id="accident_coverage" name="accident_coverage">
@@ -1172,8 +766,8 @@
                                 </div>
 
                                 <div id="form-step-2" class="form-step" style="display: none">
-                                    <h3>Recevez votre comparaison</h3>
-                                    <p class="form-step-subtitle">À quelles coordonnées pouvons-nous vous contacter ?</p>
+                                    <h3 class="text-xl font-bold text-slate-900 mb-2">Vos informations personnelles</h3>
+                                    <p class="text-sm text-slate-500 mb-6">Les données sont chiffrées et ne sont partagées qu'avec votre accord.</p>
 
                                     <div class="form-row">
                                         <div class="form-group">
@@ -1181,7 +775,6 @@
                                             <input type="text" id="first_name" name="first_name" placeholder="Votre prénom" required />
                                             <div class="error-message" id="error-first_name">Veuillez saisir votre prénom.</div>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="last_name">Nom</label>
                                             <input type="text" id="last_name" name="last_name" placeholder="Votre nom" required />
@@ -1195,7 +788,6 @@
                                             <input type="tel" id="phone" name="phone" placeholder="+41 XX XXX XX XX" required />
                                             <div class="error-message" id="error-phone">Veuillez saisir un numéro de téléphone valide.</div>
                                         </div>
-
                                         <div class="form-group">
                                             <label for="email">Email</label>
                                             <input type="email" id="email" name="email" placeholder="vous@exemple.ch" required />
@@ -1207,9 +799,7 @@
                                         <div class="form-group">
                                             <div class="checkbox-container">
                                                 <input type="checkbox" id="consent" name="consent" required />
-                                                <label for="consent" class="checkbox-label"
-                                                    >J'accepte d'être recontacté(e) par téléphone ou email pour recevoir ma comparaison. *</label
-                                                >
+                                                <label for="consent" class="checkbox-label">J'accepte d'être recontacté(e) par téléphone ou email pour recevoir ma comparaison. *</label>
                                             </div>
                                             <div class="error-message" id="error-consent">Veuillez accepter d'être recontacté(e).</div>
                                         </div>
@@ -1220,198 +810,254 @@
                                         <button type="submit" class="compare-btn" id="submit-btn">
                                             <span class="btn-text">Recevoir ma comparaison gratuite</span>
                                             <span class="btn-icon"><i class="fa-solid fa-paper-plane"></i></span>
+                                            <div class="btn-ripple"></div>
                                         </button>
                                     </div>
                                 </div>
                             </form>
 
                             <div id="thank-you-message">
-                                <h4>Merci pour votre demande</h4>
-                                <p>Votre dossier est en cours de traitement.</p>
+                                <h4>Merci pour votre confiance !</h4>
+                                <p>Un conseiller vous contactera sous 48h avec vos meilleures offres.</p>
+                            </div>
+
+                            <div class="trust-indicators">
+                                <span><i class="fa-solid fa-lock"></i>Données 100% sécurisées</span>
+                                <span><i class="fa-solid fa-shield"></i>Service certifié FINMA</span>
+                                <span><i class="fa-solid fa-stopwatch"></i>Comparaison en moins de 2 min</span>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="trust-strip" aria-label="Barre de confiance">
-                <div class="container">
-                    <ul class="trust-strip-list">
-                        <li><i class="fa-solid fa-circle-check"></i>Gratuit</li>
-                        <li><i class="fa-solid fa-circle-check"></i>Sans engagement</li>
-                        <li><i class="fa-solid fa-circle-check"></i>Données confidentielles</li>
-                        <li><i class="fa-solid fa-circle-check"></i>Demande transmise à notre partenaire courtier en Suisse</li>
-                    </ul>
-                </div>
-            </section>
-
-            <section id="how-it-works" class="section surface">
-                <div class="container">
-                    <div class="section-head">
-                        <h2>Comment ça marche ?</h2>
-                        <p>Un parcours clair et structuré pour comparer efficacement.</p>
-                    </div>
-
-                    <div class="grid-3">
-                        <article class="card">
-                            <span class="step-number">1</span>
-                            <h3>Renseignez votre profil</h3>
-                            <p>Localité, âge, franchise et type d'assurance recherché.</p>
-                        </article>
-
-                        <article class="card">
-                            <span class="step-number">2</span>
-                            <h3>Nous analysons votre demande</h3>
-                            <p>Votre profil est transmis pour identifier les offres les plus pertinentes.</p>
-                        </article>
-
-                        <article class="card">
-                            <span class="step-number">3</span>
-                            <h3>Vous recevez une comparaison</h3>
-                            <p>Un conseiller vous contacte rapidement avec les options adaptées.</p>
-                        </article>
+        <!-- Trust Indicators / Logos -->
+        <section id="partners" class="py-10 border-y border-slate-100 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <p class="text-center text-sm font-medium text-slate-500 mb-8 uppercase tracking-wider">Nous comparons plus de 50 assureurs suisses, dont :</p>
+                <div class="logo-marquee">
+                    <div class="logo-track">
+                        <div class="logo-item"><img src="assets/img/logos/Assura_logo.jpg" alt="Logo Assura" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/logo_css.jpg" alt="Logo CSS" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/helsana-logo.svg" alt="Logo Helsana" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/swica-logo-f.svg" alt="Logo SWICA" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/concordia_logo.svg" alt="Logo CONCORDIA" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/sanitas_logo.jpg" alt="Logo Sanitas" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/Sympany_logo.jpg" alt="Logo Sympany" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/atupri_logo.svg" alt="Logo Atupri" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/egk_logo.jpg" alt="Logo EGK" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/kpt_logo.jpg" alt="Logo KPT/CPT" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/logo-visana.svg" alt="Logo Visana" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/okk_logo.svg" alt="Logo ÖKK" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/Assura_logo.jpg" alt="Logo Assura" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/logo_css.jpg" alt="Logo CSS" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/helsana-logo.svg" alt="Logo Helsana" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/swica-logo-f.svg" alt="Logo SWICA" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/concordia_logo.svg" alt="Logo CONCORDIA" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/sanitas_logo.jpg" alt="Logo Sanitas" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/Sympany_logo.jpg" alt="Logo Sympany" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/atupri_logo.svg" alt="Logo Atupri" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/egk_logo.jpg" alt="Logo EGK" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/kpt_logo.jpg" alt="Logo KPT/CPT" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/logo-visana.svg" alt="Logo Visana" /></div>
+                        <div class="logo-item"><img src="assets/img/logos/okk_logo.svg" alt="Logo ÖKK" /></div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section class="section" id="benefits">
-                <div class="container">
-                    <div class="section-head">
-                        <h2>Pourquoi choisir Assurator.ch ?</h2>
-                        <p>Une approche simple, ciblée et accompagnée.</p>
+        <!-- Why Choose Us (Stats & Value) -->
+        <section id="features" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">L'assurance adaptée à vos vrais besoins</h2>
+                    <p class="text-lg text-slate-600">Nous savons que les assurances peuvent être compliquées. Assurator simplifie tout pour vous offrir une vision claire et vous faire économiser.</p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                        <div class="w-14 h-14 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-piggy-bank"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Économies Garanties</h3>
+                        <p class="text-slate-600 leading-relaxed">Nos utilisateurs économisent en moyenne 480 CHF par an en changeant d'assurance via notre plateforme.</p>
                     </div>
 
-                    <div class="grid-3">
-                        <article class="card">
-                            <i class="fa-solid fa-list-check" style="color: var(--primary-navy)"></i>
-                            <h3>Simple</h3>
-                            <p>Un formulaire court, sans paperasse inutile.</p>
-                        </article>
-
-                        <article class="card">
-                            <i class="fa-solid fa-bullseye" style="color: var(--primary-navy)"></i>
-                            <h3>Ciblé</h3>
-                            <p>Des offres adaptées à votre canton, votre franchise et votre situation.</p>
-                        </article>
-
-                        <article class="card">
-                            <i class="fa-solid fa-user-tie" style="color: var(--primary-navy)"></i>
-                            <h3>Accompagné</h3>
-                            <p>Vous n'êtes pas seul: un conseiller peut vous aider à comparer.</p>
-                        </article>
+                    <!-- Feature 2 -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                        <div class="w-14 h-14 rounded-xl bg-purple-100 text-purple-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-stopwatch"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Rapide & Simple</h3>
+                        <p class="text-slate-600 leading-relaxed">Fini la paperasse interminable. Obtenez une vue d'ensemble claire des meilleures offres en moins de 2 minutes.</p>
                     </div>
 
-                    <div class="trust-proof-strip">
-                        <p class="proof-label">Assureurs couramment comparés selon votre profil</p>
-                        <div class="logo-row">
-                            <span class="logo-pill"><img src="assets/img/logos/helsana-logo.svg" alt="Helsana" /></span>
-                            <span class="logo-pill"><img src="assets/img/logos/swica-logo-f.svg" alt="SWICA" /></span>
-                            <span class="logo-pill"><img src="assets/img/logos/logo-visana.svg" alt="Visana" /></span>
-                            <span class="logo-pill"><img src="assets/img/logos/concordia_logo.svg" alt="Concordia" /></span>
-                            <span class="logo-pill"><img src="assets/img/logos/atupri_logo.svg" alt="Atupri" /></span>
+                    <!-- Feature 3 -->
+                    <div class="p-8 rounded-2xl bg-slate-50 border border-slate-100 hover:shadow-xl transition-all duration-300 group">
+                        <div class="w-14 h-14 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition-transform">
+                            <i class="fa-solid fa-headset"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Experts à l'écoute</h3>
+                        <p class="text-slate-600 leading-relaxed">Une question ? Nos conseillers certifiés sont disponibles pour vous guider sans jargon compliqué.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works -->
+        <section id="how-it-works" class="py-24 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Comment ça marche ?</h2>
+                    <p class="text-lg text-slate-600">En 3 étapes simples, trouvez l'assurance parfaite</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 relative">
+                    <div class="hidden md:block absolute top-1/3 left-1/4 right-1/4 h-0.5 bg-gradient-to-r from-brand-200 via-brand-400 to-brand-200"></div>
+                    <div class="relative bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg shadow-brand-500/30">1</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Répondez au questionnaire</h3>
+                        <p class="text-slate-600">Quelques questions simples sur votre situation et vos besoins</p>
+                    </div>
+                    <div class="relative bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg shadow-brand-500/30">2</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Comparez les offres</h3>
+                        <p class="text-slate-600">Recevez instantanément les meilleures offres personnalisées</p>
+                    </div>
+                    <div class="relative bg-white p-8 rounded-2xl border border-slate-200 shadow-sm text-center">
+                        <div class="w-16 h-16 rounded-full bg-brand-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-6 shadow-lg shadow-brand-500/30">3</div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-3">Économisez</h3>
+                        <p class="text-slate-600">Choisissez votre nouvelle assurance et profitez des économies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section id="testimonials" class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Ils nous font confiance</h2>
+                    <p class="text-lg text-slate-600">Des milliers de Suisses ont déjà économisé avec Assurator</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <div class="flex text-yellow-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-slate-700 mb-6 leading-relaxed">"J'ai économisé 620 CHF par an en changeant d'assurance. Le processus était simple et rapide !"</p>
+                        <div class="flex items-center gap-3">
+                            <img class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-5.jpg" alt="Marie" />
+                            <div>
+                                <p class="font-semibold text-slate-900">Marie D.</p>
+                                <p class="text-sm text-slate-500">Genève</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <div class="flex text-yellow-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-slate-700 mb-6 leading-relaxed">"Excellent service ! Les conseillers m'ont aidé à trouver une assurance adaptée à ma famille."</p>
+                        <div class="flex items-center gap-3">
+                            <img class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-8.jpg" alt="Thomas" />
+                            <div>
+                                <p class="font-semibold text-slate-900">Thomas R.</p>
+                                <p class="text-sm text-slate-500">Lausanne</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-50 p-8 rounded-2xl border border-slate-100">
+                        <div class="flex text-yellow-400 text-sm mb-4"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+                        <p class="text-slate-700 mb-6 leading-relaxed">"Comparaison claire et transparente. Je recommande vivement Assurator à tous mes amis !"</p>
+                        <div class="flex items-center gap-3">
+                            <img class="w-12 h-12 rounded-full object-cover" src="https://storage.googleapis.com/uxpilot-auth.appspot.com/avatars/avatar-1.jpg" alt="Sophie" />
+                            <div>
+                                <p class="font-semibold text-slate-900">Sophie M.</p>
+                                <p class="text-sm text-slate-500">Zurich</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </section>
+            </div>
+        </section>
 
-            <section id="faq" class="section surface">
-                <div class="container">
-                    <div class="section-head">
-                        <h2>FAQ</h2>
-                        <p>Réponses courtes aux objections les plus fréquentes.</p>
-                    </div>
+        <!-- Final CTA -->
+        <section id="final-cta" class="py-24 bg-gradient-to-br from-brand-900 via-brand-800 to-brand-700 text-white relative overflow-hidden">
+            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+                <h2 class="text-3xl md:text-5xl font-bold mb-6">Prêt à économiser sur votre assurance ?</h2>
+                <p class="text-xl text-brand-100 mb-10">Rejoignez les milliers de Suisses qui ont déjà fait le bon choix</p>
+                <a href="#hero" class="inline-block bg-accent-600 hover:bg-accent-500 text-white text-lg font-bold px-10 py-4 rounded-xl shadow-2xl transition-all transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-white/40">
+                    COMPARER GRATUITEMENT
+                </a>
+                <p class="text-sm text-brand-200 mt-6"><i class="fa-solid fa-lock mr-1"></i> 100% gratuit et sans engagement</p>
+            </div>
+        </section>
 
-                    <div class="grid-2">
-                        <article class="card">
-                            <h3>Est-ce gratuit ?</h3>
-                            <p>Oui, la demande de comparaison est gratuite et sans engagement.</p>
-                        </article>
-
-                        <article class="card">
-                            <h3>Vais-je être recontacté ?</h3>
-                            <p>Oui, votre demande peut être traitée par notre partenaire pour vous proposer les offres adaptées.</p>
-                        </article>
-
-                        <article class="card">
-                            <h3>Mes données sont-elles confidentielles ?</h3>
-                            <p>Oui, vos informations sont utilisées uniquement pour traiter votre demande.</p>
-                        </article>
-
-                        <article class="card">
-                            <h3>Combien de temps cela prend-il ?</h3>
-                            <p>Le formulaire prend environ une minute.</p>
-                        </article>
-
-                        <article class="card">
-                            <h3>Puis-je comparer même si j'ai déjà un assureur ?</h3>
-                            <p>Oui, la comparaison permet d'évaluer si une offre plus adaptée existe.</p>
-                        </article>
-
-                        <article class="card">
-                            <h3>Comparez-vous toute la Suisse ?</h3>
-                            <p>Oui, selon le produit et la localité renseignée.</p>
-                        </article>
-                    </div>
-                </div>
-            </section>
-
-            <section class="final-cta" id="start-comparison">
-                <div class="container">
-                    <div class="final-cta-box">
-                        <h2>Prêt à comparer vos primes ?</h2>
-                        <p>Renseignez votre profil et recevez gratuitement une comparaison adaptée à votre situation.</p>
-                        <a class="final-btn" href="#comparator-form">Commencer ma comparaison <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <footer id="footer" class="site-footer">
-            <div class="container">
-                <div class="footer-top">
+        <!-- Footer -->
+        <footer id="footer" class="bg-slate-900 text-slate-300 pt-16 pb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid md:grid-cols-4 gap-8 mb-12">
                     <div>
-                        <span class="footer-brand">
-                            <img src="logosolo.png" alt="Logo Assurator" />
-                            Assurator.ch
-                        </span>
-                        <p class="footer-desc">Comparateur d'assurance en Suisse, pensé pour une expérience claire et rassurante.</p>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-lg bg-brand-600 flex items-center justify-center text-white text-xl font-bold">
+                                <i class="fa-solid fa-shield-halved"></i>
+                            </div>
+                            <span class="text-xl font-bold text-white">Assurator<span class="text-brand-400">.eu</span></span>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">Le comparateur d'assurances suisse de confiance depuis 2018.</p>
                     </div>
-
                     <div>
-                        <p class="footer-title">Conformité</p>
-                        <ul class="footer-links">
-                            <li><a href="#">Mentions légales</a></li>
-                            <li><a href="#">Politique de confidentialité</a></li>
-                            <li><a href="#">Conditions d'utilisation</a></li>
+                        <h4 class="font-semibold text-white mb-4">Assurances</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Assurance Maladie</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Assurance Complémentaire</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Assurance Hospitalisation</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Assurance Animaux</a></li>
                         </ul>
                     </div>
-
                     <div>
-                        <p class="footer-title">Contact</p>
-                        <ul class="footer-links">
-                            <li><a href="mailto:info@assurator.ch">info@assurator.ch</a></li>
+                        <h4 class="font-semibold text-white mb-4">Entreprise</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">À propos</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Blog</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-white mb-4">Support</h4>
+                        <ul class="space-y-2 text-sm">
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Conditions d'utilisation</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Politique de confidentialité</a></li>
                         </ul>
                     </div>
                 </div>
-
-                <div class="footer-bottom">
-                    <p>© 2026 Assurator.ch - Tous droits réservés.</p>
-                    <a href="mailto:info@assurator.ch" class="footer-contact">Assistance: info@assurator.ch</a>
+                <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <p class="text-sm text-slate-500">© 2025 Assurator.eu - Tous droits réservés</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-600 flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-600 flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-600 flex items-center justify-center transition-colors">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </footer>
+        <!-- TEST ONLY - à supprimer -->
+        <!-- <div style="position: fixed; bottom: 90px; left: 8px; z-index: 9999">
+            <a href="merci.html" style="background: #1d4ed8; color: #fff; padding: 6px 12px; border-radius: 6px; font-size: 12px; text-decoration: none">🧪 Test page /merci</a>
+        </div> -->
 
         <div id="loading-overlay" class="loading-overlay">
             <div class="spinner"></div>
-            <p>Nous traitons votre demande...</p>
+            <p class="text-sm uppercase tracking-wide">Nous traitons votre demande...</p>
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/imask"></script>
-        <script
-            src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.11.3/libphonenumber-js.min.js"
-            crossorigin="anonymous"
-            referrerpolicy="no-referrer"
-        ></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/libphonenumber-js/1.11.3/libphonenumber-js.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="assets/js/mask-and-autocomplete.js"></script>
         <script src="assets/js/form.js"></script>
     </body>
