@@ -1,31 +1,27 @@
-﻿document.addEventListener('DOMContentLoaded', function () {
-    const leadForm = document.getElementById('lead-capture-form');
+﻿document.addEventListener("DOMContentLoaded", function () {
+    const leadForm = document.getElementById("lead-capture-form");
     if (!leadForm) {
         return;
     }
 
-    const productTypeInput = document.getElementById('product-type');
-    const productOptions = Array.from(document.querySelectorAll('.product-option[data-product-value]'));
+    const productTypeInput = document.getElementById("product-type");
+    const productOptions = Array.from(document.querySelectorAll(".product-option[data-product-value]"));
 
-    const formStep1 = document.getElementById('form-step-1');
-    const formStep2 = document.getElementById('form-step-2');
-    const formStep3 = document.getElementById('form-step-3');
+    const formStep1 = document.getElementById("form-step-1");
+    const formStep2 = document.getElementById("form-step-2");
+    const formStep3 = document.getElementById("form-step-3");
 
-    const step1NextButton = document.getElementById('step1-next-btn');
-    const step2PrevButton = document.getElementById('step2-prev-btn');
-    const step2NextButton = document.getElementById('step2-next-btn');
-    const step3PrevButton = document.getElementById('step3-prev-btn');
+    const step1NextButton = document.getElementById("step1-next-btn");
+    const step2PrevButton = document.getElementById("step2-prev-btn");
+    const step2NextButton = document.getElementById("step2-next-btn");
+    const step3PrevButton = document.getElementById("step3-prev-btn");
 
-    const submitButton = document.getElementById('submit-btn');
-    const progressBarFill = document.getElementById('progress-bar-fill');
-    const loadingOverlay = document.getElementById('loading-overlay');
-    const productSpecificFieldsContainer = document.getElementById('product-specific-fields');
+    const submitButton = document.getElementById("submit-btn");
+    const progressBarFill = document.getElementById("progress-bar-fill");
+    const loadingOverlay = document.getElementById("loading-overlay");
+    const productSpecificFieldsContainer = document.getElementById("product-specific-fields");
 
-    const progressStepElements = [
-        document.getElementById('progress-step-1'),
-        document.getElementById('progress-step-2'),
-        document.getElementById('progress-step-3'),
-    ];
+    const progressStepElements = [document.getElementById("progress-step-1"), document.getElementById("progress-step-2"), document.getElementById("progress-step-3")];
 
     const INSURER_OPTIONS_REQUIRED = `
         <option value="" disabled selected>Sélectionnez</option>
@@ -65,7 +61,7 @@
 
     const PRODUCT_CONFIG = {
         LAMAL: {
-            formSource: 'main_form',
+            formSource: "main_form",
             requiredFields: [],
             fieldsTemplate: `
                 <div class="form-row">
@@ -76,8 +72,8 @@
             `,
         },
         LCA: {
-            formSource: 'lca_form',
-            requiredFields: ['lca_need'],
+            formSource: "lca_form",
+            requiredFields: ["lca_need"],
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
@@ -109,8 +105,8 @@
             `,
         },
         PRENATALE: {
-            formSource: 'prenatal_form',
-            requiredFields: ['pregnancy_status', 'delivery_timing'],
+            formSource: "prenatal_form",
+            requiredFields: ["pregnancy_status", "delivery_timing"],
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
@@ -144,8 +140,8 @@
             `,
         },
         VOYAGE: {
-            formSource: 'travel_form',
-            requiredFields: ['travel_type', 'destination_zone', 'departure_timing', 'trip_duration'],
+            formSource: "travel_form",
+            requiredFields: ["travel_type", "destination_zone", "departure_timing", "trip_duration"],
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
@@ -222,8 +218,8 @@
             `,
         },
         ANIMAUX: {
-            formSource: 'animals_form',
-            requiredFields: ['animal_type'],
+            formSource: "animals_form",
+            requiredFields: ["animal_type"],
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
@@ -248,7 +244,7 @@
                         <select id="coverage_level" name="coverage_level">
                             <option value="">Sélectionnez</option>
                             <option value="essentielle">Essentielle</option>
-                            <option value="equilibree">?quilibrée</option>
+                            <option value="equilibree">Équilibrée</option>
                             <option value="renforcee">Renforcée</option>
                         </select>
                     </div>
@@ -256,8 +252,8 @@
             `,
         },
         NOUVEAU_RESIDENT: {
-            formSource: 'resident_form',
-            requiredFields: ['installation_timing', 'household_status'],
+            formSource: "resident_form",
+            requiredFields: ["installation_timing", "household_status"],
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
@@ -291,7 +287,7 @@
     function toggleError(errorId, show) {
         const errorElement = document.getElementById(errorId);
         if (errorElement) {
-            errorElement.style.display = show ? 'block' : 'none';
+            errorElement.style.display = show ? "block" : "none";
         }
     }
 
@@ -302,16 +298,16 @@
     function pushLeadEvent(formSource, productType) {
         window.dataLayer = window.dataLayer || [];
         window.dataLayer.push({
-            event: 'lead_form_submit',
-            form_source: formSource || 'unknown',
-            product_type: productType || 'unknown',
+            event: "lead_form_submit",
+            form_source: formSource || "unknown",
+            product_type: productType || "unknown",
             page_path: window.location.pathname,
         });
     }
 
     function getActiveProduct() {
-        const activeValue = productTypeInput && productTypeInput.value ? productTypeInput.value : 'LAMAL';
-        return PRODUCT_CONFIG[activeValue] ? activeValue : 'LAMAL';
+        const activeValue = productTypeInput && productTypeInput.value ? productTypeInput.value : "LAMAL";
+        return PRODUCT_CONFIG[activeValue] ? activeValue : "LAMAL";
     }
 
     function getActiveConfig() {
@@ -319,7 +315,7 @@
     }
 
     function shouldSkipStep2() {
-        return getActiveProduct() === 'LAMAL';
+        return getActiveProduct() === "LAMAL";
     }
 
     function renderProductSpecificFields() {
@@ -333,32 +329,32 @@
         if (progressBarFill) {
             // Align with the 3 step markers (left / center / right).
             const widthByStep = {
-                1: '0%',
-                2: '50%',
-                3: '100%',
+                1: "0%",
+                2: "50%",
+                3: "100%",
             };
-            progressBarFill.style.width = widthByStep[step] || '0%';
+            progressBarFill.style.width = widthByStep[step] || "0%";
         }
 
         progressStepElements.forEach(function (stepElement, index) {
             if (!stepElement) return;
-            const icon = stepElement.querySelector('i');
+            const icon = stepElement.querySelector("i");
             const isDone = index + 1 <= step;
 
-            stepElement.classList.toggle('text-slate-300', !isDone);
-            stepElement.classList.toggle('text-slate-600', isDone);
+            stepElement.classList.toggle("text-slate-300", !isDone);
+            stepElement.classList.toggle("text-slate-600", isDone);
 
             if (icon) {
-                icon.classList.toggle('text-slate-300', !isDone);
-                icon.classList.toggle('text-rose-500', isDone);
+                icon.classList.toggle("text-slate-300", !isDone);
+                icon.classList.toggle("text-rose-500", isDone);
             }
         });
     }
 
     function showOnlyStep(step) {
-        if (formStep1) formStep1.style.display = step === 1 ? 'block' : 'none';
-        if (formStep2) formStep2.style.display = step === 2 ? 'block' : 'none';
-        if (formStep3) formStep3.style.display = step === 3 ? 'block' : 'none';
+        if (formStep1) formStep1.style.display = step === 1 ? "block" : "none";
+        if (formStep2) formStep2.style.display = step === 2 ? "block" : "none";
+        if (formStep3) formStep3.style.display = step === 3 ? "block" : "none";
     }
 
     function goToStep(step) {
@@ -396,20 +392,20 @@
             if (!stepElement) {
                 return;
             }
-            stepElement.classList.remove('form-step-out');
-            stepElement.classList.remove('form-step-pre-in');
+            stepElement.classList.remove("form-step-out");
+            stepElement.classList.remove("form-step-pre-in");
         });
 
-        currentStepElement.classList.add('form-step-out');
+        currentStepElement.classList.add("form-step-out");
 
         stepTransitionTimer = setTimeout(function () {
-            currentStepElement.style.display = 'none';
-            currentStepElement.classList.remove('form-step-out');
+            currentStepElement.style.display = "none";
+            currentStepElement.classList.remove("form-step-out");
 
-            nextStepElement.style.display = 'block';
-            nextStepElement.classList.add('form-step-pre-in');
+            nextStepElement.style.display = "block";
+            nextStepElement.classList.add("form-step-pre-in");
             nextStepElement.getBoundingClientRect();
-            nextStepElement.classList.remove('form-step-pre-in');
+            nextStepElement.classList.remove("form-step-pre-in");
 
             stepTransitionTimer = setTimeout(function () {
                 stepTransitionTimer = null;
@@ -426,25 +422,25 @@
         const franchiseInput = leadForm.querySelector('[name="franchise"]');
         const insurerInput = leadForm.querySelector('[name="current_insurer"]');
 
-        const npaValue = npaInput && typeof npaInput.value === 'string' ? npaInput.value.trim() : '';
-        const localityValue = localityInput && typeof localityInput.value === 'string' ? localityInput.value.trim() : '';
-        const ageRangeValue = ageRangeInput && typeof ageRangeInput.value === 'string' ? ageRangeInput.value.trim() : '';
-        const franchiseValue = franchiseInput && typeof franchiseInput.value === 'string' ? franchiseInput.value.trim() : '';
-        const insurerValue = insurerInput && typeof insurerInput.value === 'string' ? insurerInput.value.trim() : '';
+        const npaValue = npaInput && typeof npaInput.value === "string" ? npaInput.value.trim() : "";
+        const localityValue = localityInput && typeof localityInput.value === "string" ? localityInput.value.trim() : "";
+        const ageRangeValue = ageRangeInput && typeof ageRangeInput.value === "string" ? ageRangeInput.value.trim() : "";
+        const franchiseValue = franchiseInput && typeof franchiseInput.value === "string" ? franchiseInput.value.trim() : "";
+        const insurerValue = insurerInput && typeof insurerInput.value === "string" ? insurerInput.value.trim() : "";
 
         const isProductValid = !!getActiveProduct();
         const isNpaValid = /^\d{4}$/.test(npaValue);
-        const isLocalityValid = localityValue !== '';
-        const isAgeRangeValid = ageRangeValue !== '';
-        const isFranchiseValid = franchiseValue !== '';
-        const isInsurerValid = insurerValue !== '';
+        const isLocalityValid = localityValue !== "";
+        const isAgeRangeValid = ageRangeValue !== "";
+        const isFranchiseValid = franchiseValue !== "";
+        const isInsurerValid = insurerValue !== "";
 
         if (showErrors) {
-            toggleError('error-npa', !isNpaValid);
-            toggleError('error-locality', !isLocalityValid);
-            toggleError('error-age_range', !isAgeRangeValid);
-            toggleError('error-franchise', !isFranchiseValid);
-            toggleError('error-current_insurer', !isInsurerValid);
+            toggleError("error-npa", !isNpaValid);
+            toggleError("error-locality", !isLocalityValid);
+            toggleError("error-age_range", !isAgeRangeValid);
+            toggleError("error-franchise", !isFranchiseValid);
+            toggleError("error-current_insurer", !isInsurerValid);
         }
 
         return isProductValid && isNpaValid && isLocalityValid && isAgeRangeValid && isFranchiseValid && isInsurerValid;
@@ -460,11 +456,11 @@
                 return false;
             }
 
-            const rawValue = typeof field.value === 'string' ? field.value.trim() : '';
-            const isValid = rawValue !== '';
+            const rawValue = typeof field.value === "string" ? field.value.trim() : "";
+            const isValid = rawValue !== "";
 
             if (showErrors) {
-                toggleError('error-' + fieldName, !isValid);
+                toggleError("error-" + fieldName, !isValid);
             }
 
             return isValid;
@@ -472,29 +468,29 @@
     }
 
     function validateStep3(showErrors) {
-        const firstNameInput = document.getElementById('first_name');
-        const lastNameInput = document.getElementById('last_name');
-        const phoneInput = document.getElementById('phone');
-        const emailInput = document.getElementById('email');
-        const consentInput = document.getElementById('consent');
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const phoneInput = document.getElementById("phone");
+        const emailInput = document.getElementById("email");
+        const consentInput = document.getElementById("consent");
 
-        const firstNameValue = firstNameInput ? firstNameInput.value.trim() : '';
-        const lastNameValue = lastNameInput ? lastNameInput.value.trim() : '';
-        const phoneValue = phoneInput ? phoneInput.value.trim() : '';
-        const emailValue = emailInput ? emailInput.value.trim() : '';
+        const firstNameValue = firstNameInput ? firstNameInput.value.trim() : "";
+        const lastNameValue = lastNameInput ? lastNameInput.value.trim() : "";
+        const phoneValue = phoneInput ? phoneInput.value.trim() : "";
+        const emailValue = emailInput ? emailInput.value.trim() : "";
         const consentValue = consentInput ? consentInput.checked : false;
 
-        const isFirstNameValid = firstNameValue !== '';
-        const isLastNameValid = lastNameValue !== '';
-        const isPhoneValid = phoneValue !== '';
-        const isEmailFieldValid = emailValue !== '' && isEmailValid(emailValue);
+        const isFirstNameValid = firstNameValue !== "";
+        const isLastNameValid = lastNameValue !== "";
+        const isPhoneValid = phoneValue !== "";
+        const isEmailFieldValid = emailValue !== "" && isEmailValid(emailValue);
 
         if (showErrors) {
-            toggleError('error-first_name', !isFirstNameValid);
-            toggleError('error-last_name', !isLastNameValid);
-            toggleError('error-phone', !isPhoneValid);
-            toggleError('error-email', !isEmailFieldValid);
-            toggleError('error-consent', !consentValue);
+            toggleError("error-first_name", !isFirstNameValid);
+            toggleError("error-last_name", !isLastNameValid);
+            toggleError("error-phone", !isPhoneValid);
+            toggleError("error-email", !isEmailFieldValid);
+            toggleError("error-consent", !consentValue);
         }
 
         return isFirstNameValid && isLastNameValid && isPhoneValid && isEmailFieldValid && consentValue;
@@ -511,11 +507,11 @@
 
     function selectProduct(button) {
         productOptions.forEach(function (option) {
-            option.classList.remove('is-selected');
+            option.classList.remove("is-selected");
         });
-        button.classList.add('is-selected');
+        button.classList.add("is-selected");
 
-        const value = button.getAttribute('data-product-value');
+        const value = button.getAttribute("data-product-value");
         if (productTypeInput && value) {
             productTypeInput.value = value;
         }
@@ -525,13 +521,13 @@
     }
 
     productOptions.forEach(function (button) {
-        button.addEventListener('click', function () {
+        button.addEventListener("click", function () {
             selectProduct(button);
         });
     });
 
     if (step1NextButton) {
-        step1NextButton.addEventListener('click', function () {
+        step1NextButton.addEventListener("click", function () {
             if (validateStep1(true)) {
                 goToStep(shouldSkipStep2() ? 3 : 2);
             }
@@ -539,13 +535,13 @@
     }
 
     if (step2PrevButton) {
-        step2PrevButton.addEventListener('click', function () {
+        step2PrevButton.addEventListener("click", function () {
             goToStep(1);
         });
     }
 
     if (step2NextButton) {
-        step2NextButton.addEventListener('click', function () {
+        step2NextButton.addEventListener("click", function () {
             if (validateStep2(true)) {
                 goToStep(3);
             }
@@ -553,46 +549,46 @@
     }
 
     if (step3PrevButton) {
-        step3PrevButton.addEventListener('click', function () {
+        step3PrevButton.addEventListener("click", function () {
             goToStep(shouldSkipStep2() ? 1 : 2);
         });
     }
 
-    leadForm.addEventListener('input', function (event) {
+    leadForm.addEventListener("input", function (event) {
         const target = event.target;
         if (!target || !target.name) {
             return;
         }
 
-        if (target.name === 'npa' && typeof target.value === 'string') {
-            target.value = target.value.replace(/[^0-9]/g, '').substring(0, 4);
+        if (target.name === "npa" && typeof target.value === "string") {
+            target.value = target.value.replace(/[^0-9]/g, "").substring(0, 4);
         }
 
-        if (target.name === 'consent') {
-            toggleError('error-consent', false);
+        if (target.name === "consent") {
+            toggleError("error-consent", false);
             return;
         }
 
-        toggleError('error-' + target.name, false);
+        toggleError("error-" + target.name, false);
         checkAutoAdvanceToStep2();
     });
 
-    leadForm.addEventListener('change', function (event) {
+    leadForm.addEventListener("change", function (event) {
         const target = event.target;
         if (!target || !target.name) {
             return;
         }
 
-        if (target.name === 'consent') {
-            toggleError('error-consent', false);
+        if (target.name === "consent") {
+            toggleError("error-consent", false);
             return;
         }
 
-        toggleError('error-' + target.name, false);
+        toggleError("error-" + target.name, false);
         checkAutoAdvanceToStep2();
     });
 
-    leadForm.addEventListener('submit', function (event) {
+    leadForm.addEventListener("submit", function (event) {
         event.preventDefault();
 
         if (currentStep === 1) {
@@ -624,24 +620,24 @@
         const config = getActiveConfig();
 
         const formData = new FormData(leadForm);
-        formData.set('product_type', activeProduct);
-        formData.set('form_source', config.formSource);
-        formData.set('lpd_agreement', 'oui');
+        formData.set("product_type", activeProduct);
+        formData.set("form_source", config.formSource);
+        formData.set("lpd_agreement", "oui");
 
         if (submitButton) {
             submitButton.disabled = true;
-            const btnText = submitButton.querySelector('.btn-text');
+            const btnText = submitButton.querySelector(".btn-text");
             if (btnText) {
-                btnText.textContent = 'Envoi en cours...';
+                btnText.textContent = "Envoi en cours...";
             }
         }
 
         if (loadingOverlay) {
-            loadingOverlay.style.display = 'flex';
+            loadingOverlay.style.display = "flex";
         }
 
-        fetch('send_email.php', {
-            method: 'POST',
+        fetch("send_email.php", {
+            method: "POST",
             body: formData,
         })
             .then(function (response) {
@@ -649,12 +645,12 @@
             })
             .then(function (data) {
                 if (loadingOverlay) {
-                    loadingOverlay.style.display = 'none';
+                    loadingOverlay.style.display = "none";
                 }
 
                 if (data.success) {
-                    const emailInput = document.getElementById('email');
-                    const phoneInput = document.getElementById('phone');
+                    const emailInput = document.getElementById("email");
+                    const phoneInput = document.getElementById("phone");
 
                     const ecData = {};
                     if (emailInput && emailInput.value.trim()) {
@@ -664,38 +660,42 @@
                         ecData.phone_number = phoneInput.value.trim();
                     }
 
-                    window.sessionStorage.setItem('_assr_ec', JSON.stringify(ecData));
-                    window.sessionStorage.setItem('_assr_lead', JSON.stringify({
-                        form_source: config.formSource,
-                        product_type: activeProduct,
-                    }));
+                    window.sessionStorage.setItem("_assr_ec", JSON.stringify(ecData));
+                    window.sessionStorage.setItem(
+                        "_assr_lead",
+                        JSON.stringify({
+                            form_source: config.formSource,
+                            product_type: activeProduct,
+                        })
+                    );
                     pushLeadEvent(config.formSource, activeProduct);
-                    window.location.href = 'merci.html';
+                    window.location.href = "merci.html";
                 } else {
-                    alert(data.message || 'Une erreur est survenue.');
+                    alert(data.message || "Une erreur est survenue.");
                 }
             })
             .catch(function (error) {
-                console.error('Erreur:', error);
+                console.error("Erreur:", error);
                 if (loadingOverlay) {
-                    loadingOverlay.style.display = 'none';
+                    loadingOverlay.style.display = "none";
                 }
-                alert('Une erreur réseau est survenue.');
+                alert("Une erreur réseau est survenue.");
             })
             .finally(function () {
                 if (submitButton) {
                     submitButton.disabled = false;
-                    const btnText = submitButton.querySelector('.btn-text');
+                    const btnText = submitButton.querySelector(".btn-text");
                     if (btnText) {
-                        btnText.textContent = 'Recevoir ma comparaison gratuite';
+                        btnText.textContent = "Recevoir ma comparaison gratuite";
                     }
                 }
             });
     });
 
-    const defaultSelectedButton = productOptions.find(function (button) {
-        return button.classList.contains('is-selected');
-    }) || productOptions[0];
+    const defaultSelectedButton =
+        productOptions.find(function (button) {
+            return button.classList.contains("is-selected");
+        }) || productOptions[0];
 
     if (defaultSelectedButton) {
         selectProduct(defaultSelectedButton);
