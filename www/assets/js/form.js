@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+﻿document.addEventListener('DOMContentLoaded', function () {
     const leadForm = document.getElementById('lead-capture-form');
     if (!leadForm) {
         return;
@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ];
 
     const INSURER_OPTIONS_REQUIRED = `
-        <option value="" disabled selected>Selectionnez</option>
+        <option value="" disabled selected>Sélectionnez</option>
         <option value="CSS">CSS</option>
         <option value="Helsana">Helsana</option>
         <option value="Groupe Mutuel">Groupe Mutuel</option>
@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function () {
     `;
 
     const INSURER_OPTIONS_OPTIONAL = `
-        <option value="">Selectionnez</option>
+        <option value="">Sélectionnez</option>
         <option value="CSS">CSS</option>
         <option value="Helsana">Helsana</option>
         <option value="Groupe Mutuel">Groupe Mutuel</option>
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', function () {
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
-                        <p class="text-sm text-slate-500">Aucun champ supplementaire pour ce produit.</p>
+                        <p class="text-sm text-slate-500">Aucun champ supplémentaire pour ce produit.</p>
                     </div>
                 </div>
             `,
@@ -81,24 +81,24 @@ document.addEventListener('DOMContentLoaded', function () {
             fieldsTemplate: `
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="lca_need">Type de couverture recherche</label>
+                        <label for="lca_need">Type de couverture recherchée</label>
                         <select id="lca_need" name="lca_need" required>
-                            <option value="" disabled selected>Selectionnez</option>
-                            <option value="hospitalisation">Hospitalisation complementaire</option>
+                            <option value="" disabled selected>Sélectionnez</option>
+                            <option value="hospitalisation">Hospitalisation complémentaire</option>
                             <option value="ambulatoire">Soins ambulatoires</option>
                             <option value="dentaire">Dentaire</option>
                             <option value="vision">Vision et lunettes</option>
-                            <option value="medecines_douces">Medecines alternatives</option>
+                            <option value="medecines_douces">Médecines alternatives</option>
                             <option value="globale">Couverture globale</option>
                         </select>
-                        <div class="error-message" id="error-lca_need">Veuillez selectionner votre besoin principal.</div>
+                        <div class="error-message" id="error-lca_need">Veuillez sélectionner votre besoin principal.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="budget_range">Budget mensuel vise (facultatif)</label>
+                        <label for="budget_range">Budget mensuel visé (facultatif)</label>
                         <select id="budget_range" name="budget_range">
-                            <option value="">Selectionnez</option>
+                            <option value="">Sélectionnez</option>
                             <option value="moins_50">Moins de CHF 50</option>
                             <option value="50_100">CHF 50 - 100</option>
                             <option value="100_150">CHF 100 - 150</option>
@@ -116,28 +116,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="form-group">
                         <label for="pregnancy_status">Votre statut</label>
                         <select id="pregnancy_status" name="pregnancy_status" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="en_projet">En projet</option>
                             <option value="enceinte">Enceinte</option>
-                            <option value="accouchement_bientot">Accouchement prevu bientot</option>
+                            <option value="accouchement_bientot">Accouchement prévu bientôt</option>
                         </select>
                         <div class="error-message" id="error-pregnancy_status">Veuillez indiquer votre statut.</div>
                     </div>
                     <div class="form-group">
-                        <label for="delivery_timing">Mois prevu / date estimee</label>
+                        <label for="delivery_timing">Mois prévu / date estimée</label>
                         <input type="month" id="delivery_timing" name="delivery_timing" required />
-                        <div class="error-message" id="error-delivery_timing">Veuillez indiquer la periode prevue.</div>
+                        <div class="error-message" id="error-delivery_timing">Veuillez indiquer la période prévue.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="desired_coverage">Couverture recherchee (facultatif)</label>
+                        <label for="desired_coverage">Couverture recherchée (facultatif)</label>
                         <select id="desired_coverage" name="desired_coverage">
-                            <option value="">Selectionnez</option>
+                            <option value="">Sélectionnez</option>
                             <option value="grossesse_accouchement">Grossesse et accouchement</option>
-                            <option value="hospitalisation">Hospitalisation maternite</option>
+                            <option value="hospitalisation">Hospitalisation maternité</option>
                             <option value="suivi_postnatal">Suivi postnatal</option>
-                            <option value="couverture_complete">Couverture complete</option>
+                            <option value="couverture_complete">Couverture complète</option>
                         </select>
                     </div>
                 </div>
@@ -151,71 +151,71 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="form-group">
                         <label for="travel_type">Type de voyage</label>
                         <select id="travel_type" name="travel_type" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="vacances">Vacances</option>
                             <option value="affaires">Voyage d'affaires</option>
-                            <option value="backpacking">Backpacking / Long sejour</option>
+                            <option value="backpacking">Backpacking / Long séjour</option>
                             <option value="famille">Voyage en famille</option>
                             <option value="sport">Voyage sportif / Aventure</option>
                         </select>
-                        <div class="error-message" id="error-travel_type">Veuillez selectionner le type de voyage.</div>
+                        <div class="error-message" id="error-travel_type">Veuillez sélectionner le type de voyage.</div>
                     </div>
                     <div class="form-group">
                         <label for="destination_zone">Zone de destination</label>
                         <select id="destination_zone" name="destination_zone" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="europe">Europe</option>
                             <option value="monde_entier">Monde entier</option>
-                            <option value="amerique">Ameriques</option>
+                            <option value="amerique">Amériques</option>
                             <option value="asie">Asie / Pacifique</option>
                             <option value="afrique">Afrique / Moyen-Orient</option>
                         </select>
-                        <div class="error-message" id="error-destination_zone">Veuillez selectionner votre destination.</div>
+                        <div class="error-message" id="error-destination_zone">Veuillez sélectionner votre destination.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="departure_timing">Date de depart prevue</label>
+                        <label for="departure_timing">Date de départ prévue</label>
                         <select id="departure_timing" name="departure_timing" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="moins_1_mois">Dans moins d'un mois</option>
-                            <option value="1_3_mois">Dans 1 a 3 mois</option>
-                            <option value="3_6_mois">Dans 3 a 6 mois</option>
+                            <option value="1_3_mois">Dans 1 à 3 mois</option>
+                            <option value="3_6_mois">Dans 3 à 6 mois</option>
                             <option value="plus_6_mois">Dans plus de 6 mois</option>
                         </select>
-                        <div class="error-message" id="error-departure_timing">Veuillez indiquer votre date de depart.</div>
+                        <div class="error-message" id="error-departure_timing">Veuillez indiquer votre date de départ.</div>
                     </div>
                     <div class="form-group">
-                        <label for="trip_duration">Duree du voyage</label>
+                        <label for="trip_duration">Durée du voyage</label>
                         <select id="trip_duration" name="trip_duration" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="moins_1_semaine">Moins d'une semaine</option>
-                            <option value="1_2_semaines">1 a 2 semaines</option>
-                            <option value="2_4_semaines">2 a 4 semaines</option>
+                            <option value="1_2_semaines">1 à 2 semaines</option>
+                            <option value="2_4_semaines">2 à 4 semaines</option>
                             <option value="plus_1_mois">Plus d'un mois</option>
                         </select>
-                        <div class="error-message" id="error-trip_duration">Veuillez selectionner la duree du voyage.</div>
+                        <div class="error-message" id="error-trip_duration">Veuillez sélectionner la durée du voyage.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="travelers_count">Nombre de voyageurs (facultatif)</label>
                         <select id="travelers_count" name="travelers_count">
-                            <option value="">Selectionnez</option>
+                            <option value="">Sélectionnez</option>
                             <option value="1">1 personne</option>
                             <option value="2">2 personnes</option>
-                            <option value="3-4">3 a 4 personnes</option>
+                            <option value="3-4">3 à 4 personnes</option>
                             <option value="5+">5 personnes et +</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="travel_coverage">Type de couverture souhaite (facultatif)</label>
+                        <label for="travel_coverage">Type de couverture souhaité (facultatif)</label>
                         <select id="travel_coverage" name="travel_coverage">
-                            <option value="">Selectionnez</option>
+                            <option value="">Sélectionnez</option>
                             <option value="annulation">Annulation voyage</option>
-                            <option value="medicale">Assistance medicale</option>
+                            <option value="medicale">Assistance médicale</option>
                             <option value="bagages">Protection bagages</option>
-                            <option value="complete">Couverture complete</option>
+                            <option value="complete">Couverture complète</option>
                         </select>
                     </div>
                 </div>
@@ -229,27 +229,27 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="form-group">
                         <label for="animal_type">Type d'animal</label>
                         <select id="animal_type" name="animal_type" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="chien">Chien</option>
                             <option value="chat">Chat</option>
                         </select>
-                        <div class="error-message" id="error-animal_type">Veuillez selectionner le type d'animal.</div>
+                        <div class="error-message" id="error-animal_type">Veuillez sélectionner le type d'animal.</div>
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
                         <label for="pet_breed">Race ou gabarit (facultatif)</label>
-                        <input type="text" id="pet_breed" name="pet_breed" placeholder="Ex: Labrador, Europeen, petit gabarit..." />
+                        <input type="text" id="pet_breed" name="pet_breed" placeholder="Ex: Labrador, Européen, petit gabarit..." />
                     </div>
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="coverage_level">Niveau de couverture souhaite (facultatif)</label>
+                        <label for="coverage_level">Niveau de couverture souhaité (facultatif)</label>
                         <select id="coverage_level" name="coverage_level">
-                            <option value="">Selectionnez</option>
+                            <option value="">Sélectionnez</option>
                             <option value="essentielle">Essentielle</option>
-                            <option value="equilibree">Equilibree</option>
-                            <option value="renforcee">Renforcee</option>
+                            <option value="equilibree">?quilibrée</option>
+                            <option value="renforcee">Renforcée</option>
                         </select>
                     </div>
                 </div>
@@ -270,12 +270,12 @@ document.addEventListener('DOMContentLoaded', function () {
                     <div class="form-group">
                         <label for="household_status">Statut</label>
                         <select id="household_status" name="household_status" required>
-                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="" disabled selected>Sélectionnez</option>
                             <option value="seul">Seul</option>
                             <option value="couple">Couple</option>
                             <option value="famille">Famille</option>
                         </select>
-                        <div class="error-message" id="error-household_status">Veuillez selectionner votre statut.</div>
+                        <div class="error-message" id="error-household_status">Veuillez sélectionner votre statut.</div>
                     </div>
                 </div>
             `,
@@ -303,6 +303,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function getActiveConfig() {
         return PRODUCT_CONFIG[getActiveProduct()];
+    }
+
+    function shouldSkipStep2() {
+        return getActiveProduct() === 'LAMAL';
     }
 
     function renderProductSpecificFields() {
@@ -431,7 +435,7 @@ document.addEventListener('DOMContentLoaded', function () {
         clearTimeout(autoAdvanceTimer);
         autoAdvanceTimer = setTimeout(function () {
             if (currentStep === 1 && validateStep1(false)) {
-                goToStep(2);
+                goToStep(shouldSkipStep2() ? 3 : 2);
             }
         }, 250);
     }
@@ -460,7 +464,7 @@ document.addEventListener('DOMContentLoaded', function () {
     if (step1NextButton) {
         step1NextButton.addEventListener('click', function () {
             if (validateStep1(true)) {
-                goToStep(2);
+                goToStep(shouldSkipStep2() ? 3 : 2);
             }
         });
     }
@@ -481,7 +485,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (step3PrevButton) {
         step3PrevButton.addEventListener('click', function () {
-            goToStep(2);
+            goToStep(shouldSkipStep2() ? 1 : 2);
         });
     }
 
@@ -527,7 +531,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (!step1Valid) {
                 return;
             }
-            goToStep(2);
+            goToStep(shouldSkipStep2() ? 3 : 2);
             return;
         }
 
@@ -602,7 +606,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (loadingOverlay) {
                     loadingOverlay.style.display = 'none';
                 }
-                alert('Une erreur reseau est survenue.');
+                alert('Une erreur réseau est survenue.');
             })
             .finally(function () {
                 if (submitButton) {
