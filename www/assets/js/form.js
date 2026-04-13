@@ -282,8 +282,11 @@
         },
     };
 
+    const STEP_TRANSITION_MS = 280;
+
     let currentStep = 1;
     let autoAdvanceTimer = null;
+    let stepTransitionTimer = null;
 
     function toggleError(errorId, show) {
         const errorElement = document.getElementById(errorId);
@@ -342,12 +345,68 @@
         });
     }
 
-    function goToStep(step) {
-        currentStep = step;
+    function showOnlyStep(step) {
         if (formStep1) formStep1.style.display = step === 1 ? 'block' : 'none';
         if (formStep2) formStep2.style.display = step === 2 ? 'block' : 'none';
         if (formStep3) formStep3.style.display = step === 3 ? 'block' : 'none';
+    }
+
+    function goToStep(step) {
+        const stepElements = {
+            1: formStep1,
+            2: formStep2,
+            3: formStep3,
+        };
+
+        const nextStepElement = stepElements[step];
+        if (!nextStepElement) {
+            return;
+        }
+
+        if (stepTransitionTimer) {
+            clearTimeout(stepTransitionTimer);
+            stepTransitionTimer = null;
+        }
+
         setProgress(step);
+
+        if (step === currentStep) {
+            showOnlyStep(step);
+            return;
+        }
+
+        const currentStepElement = stepElements[currentStep];
+        if (!currentStepElement) {
+            showOnlyStep(step);
+            currentStep = step;
+            return;
+        }
+
+        [formStep1, formStep2, formStep3].forEach(function (stepElement) {
+            if (!stepElement) {
+                return;
+            }
+            stepElement.classList.remove('form-step-out');
+            stepElement.classList.remove('form-step-pre-in');
+        });
+
+        currentStepElement.classList.add('form-step-out');
+
+        stepTransitionTimer = setTimeout(function () {
+            currentStepElement.style.display = 'none';
+            currentStepElement.classList.remove('form-step-out');
+
+            nextStepElement.style.display = 'block';
+            nextStepElement.classList.add('form-step-pre-in');
+            nextStepElement.getBoundingClientRect();
+            nextStepElement.classList.remove('form-step-pre-in');
+
+            stepTransitionTimer = setTimeout(function () {
+                stepTransitionTimer = null;
+            }, STEP_TRANSITION_MS);
+        }, Math.round(STEP_TRANSITION_MS * 0.6));
+
+        currentStep = step;
     }
 
     function validateStep1(showErrors) {
