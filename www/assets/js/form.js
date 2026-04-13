@@ -299,6 +299,16 @@
         return /^\S+@\S+\.\S+$/.test(value);
     }
 
+    function pushLeadEvent(formSource, productType) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'lead_form_submit',
+            form_source: formSource || 'unknown',
+            product_type: productType || 'unknown',
+            page_path: window.location.pathname,
+        });
+    }
+
     function getActiveProduct() {
         const activeValue = productTypeInput && productTypeInput.value ? productTypeInput.value : 'LAMAL';
         return PRODUCT_CONFIG[activeValue] ? activeValue : 'LAMAL';
@@ -655,6 +665,7 @@
                     }
 
                     window.sessionStorage.setItem('_assr_ec', JSON.stringify(ecData));
+                    pushLeadEvent(config.formSource, activeProduct);
                     window.location.href = 'merci.html';
                 } else {
                     alert(data.message || 'Une erreur est survenue.');

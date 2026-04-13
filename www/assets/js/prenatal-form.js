@@ -87,6 +87,16 @@ document.addEventListener('DOMContentLoaded', function () {
         return /^\S+@\S+\.\S+$/.test(value);
     }
 
+    function pushLeadEvent() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+            event: 'lead_form_submit',
+            form_source: 'prenatal_form',
+            product_type: 'PRENATALE',
+            page_path: window.location.pathname,
+        });
+    }
+
     function validateStep1(showErrors) {
         const npaValue = npaInput ? npaInput.value.trim() : '';
         const localityValue = localityInput ? localityInput.value.trim() : '';
@@ -276,6 +286,7 @@ document.addEventListener('DOMContentLoaded', function () {
                         ecData.phone_number = phoneInput.value.trim();
                     }
                     window.sessionStorage.setItem('_assr_ec', JSON.stringify(ecData));
+                    pushLeadEvent();
                     window.location.href = 'merci.html';
                 } else {
                     alert(data.message || 'Une erreur est survenue.');
