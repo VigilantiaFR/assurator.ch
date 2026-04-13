@@ -336,7 +336,9 @@
         <script>
             (function () {
                 var raw = window.sessionStorage.getItem("_assr_ec");
+                var leadRaw = window.sessionStorage.getItem("_assr_lead");
                 var ecData = null;
+                var leadData = null;
                 var conversionSent = false;
                 var pushAttempts = 0;
                 var pushTimer = null;
@@ -346,18 +348,31 @@
                         ecData = JSON.parse(raw);
                     } catch (_) {}
                 }
+                if (leadRaw) {
+                    try {
+                        leadData = JSON.parse(leadRaw);
+                    } catch (_) {}
+                }
 
                 function pushConversionEventIfConsented() {
                     if (conversionSent) return;
                     if (typeof getTacConsentDecision !== "function") return;
                     if (getTacConsentDecision() !== true) return;
 
-                    var payload = { event: "conversion_formulaire" };
-                    if (ecData) payload.enhanced_conversion_data = ecData;
+                    var payload = {
+                        event: "lead_form_submit",
+                        form_source: leadData && leadData.form_source ? leadData.form_source : "unknown",
+                        product_type: leadData && leadData.product_type ? leadData.product_type : "unknown",
+                        page_path: window.location.pathname,
+                    };
+                    if (ecData) {
+                        payload.enhanced_conversion_data = ecData;
+                    }
 
                     window.dataLayer = window.dataLayer || [];
                     window.dataLayer.push(payload);
                     window.sessionStorage.removeItem("_assr_ec");
+                    window.sessionStorage.removeItem("_assr_lead");
                     conversionSent = true;
 
                     if (pushTimer) {

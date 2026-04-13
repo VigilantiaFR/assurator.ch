@@ -286,6 +286,10 @@ document.addEventListener('DOMContentLoaded', function () {
                         ecData.phone_number = phoneInput.value.trim();
                     }
                     window.sessionStorage.setItem('_assr_ec', JSON.stringify(ecData));
+                    window.sessionStorage.setItem('_assr_lead', JSON.stringify({
+                        form_source: 'lca_form',
+                        product_type: 'LCA',
+                    }));
                     pushLeadEvent();
                     window.location.href = 'merci.html';
                 } else {

@@ -665,6 +665,10 @@
                     }
 
                     window.sessionStorage.setItem('_assr_ec', JSON.stringify(ecData));
+                    window.sessionStorage.setItem('_assr_lead', JSON.stringify({
+                        form_source: config.formSource,
+                        product_type: activeProduct,
+                    }));
                     pushLeadEvent(config.formSource, activeProduct);
                     window.location.href = 'merci.html';
                 } else {
