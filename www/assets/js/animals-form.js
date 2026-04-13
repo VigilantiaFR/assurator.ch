@@ -178,6 +178,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function allStep1FieldsFilled() {
+        if (!validateStep1(false)) return false;
+        var breed = petBreedInput ? petBreedInput.value.trim() : 'ok';
+        var insurer = currentInsurerSelect ? currentInsurerSelect.value : 'ok';
+        var coverage = coverageLevelSelect ? coverageLevelSelect.value : 'ok';
+        return breed !== '' && insurer !== '' && coverage !== '';
+    }
+
+    var autoAdvanceTimer = null;
+    function checkAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && allStep1FieldsFilled()) {
+                goToStep(2);
+            }
+        }, 350);
+    }
+
+    if (animalTypeSelect) animalTypeSelect.addEventListener('change', checkAutoAdvance);
+    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
+    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
+    if (petAgeSelect) petAgeSelect.addEventListener('change', checkAutoAdvance);
+    if (petBreedInput) petBreedInput.addEventListener('input', checkAutoAdvance);
+    if (currentInsurerSelect) currentInsurerSelect.addEventListener('change', checkAutoAdvance);
+    if (coverageLevelSelect) coverageLevelSelect.addEventListener('change', checkAutoAdvance);
+
     if (nextButton) {
         nextButton.addEventListener('click', function () {
             if (validateStep1(true)) {

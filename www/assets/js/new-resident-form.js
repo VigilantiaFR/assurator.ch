@@ -186,6 +186,29 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function allStep1FieldsFilled() {
+        if (!validateStep1(false)) return false;
+        var origin = originInsurerInput ? originInsurerInput.value.trim() : 'ok';
+        return origin !== '';
+    }
+
+    var autoAdvanceTimer = null;
+    function checkAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && allStep1FieldsFilled()) {
+                goToStep(2);
+            }
+        }, 350);
+    }
+
+    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
+    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
+    if (ageRangeSelect) ageRangeSelect.addEventListener('change', checkAutoAdvance);
+    if (installationTimingInput) installationTimingInput.addEventListener('change', checkAutoAdvance);
+    if (householdStatusSelect) householdStatusSelect.addEventListener('change', checkAutoAdvance);
+    if (originInsurerInput) originInsurerInput.addEventListener('change', checkAutoAdvance);
+
     if (nextButton) {
         nextButton.addEventListener('click', function () {
             if (validateStep1(true)) {

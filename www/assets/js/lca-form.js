@@ -177,6 +177,30 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function allStep1FieldsFilled() {
+        if (!validateStep1(false)) return false;
+        var insurer = currentInsurerSelect ? currentInsurerSelect.value : 'ok';
+        var budget = budgetRangeSelect ? budgetRangeSelect.value : 'ok';
+        return insurer !== '' && budget !== '';
+    }
+
+    var autoAdvanceTimer = null;
+    function checkAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && allStep1FieldsFilled()) {
+                goToStep(2);
+            }
+        }, 350);
+    }
+
+    if (lcaNeedSelect) lcaNeedSelect.addEventListener('change', checkAutoAdvance);
+    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
+    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
+    if (ageRangeSelect) ageRangeSelect.addEventListener('change', checkAutoAdvance);
+    if (currentInsurerSelect) currentInsurerSelect.addEventListener('change', checkAutoAdvance);
+    if (budgetRangeSelect) budgetRangeSelect.addEventListener('change', checkAutoAdvance);
+
     if (nextButton) {
         nextButton.addEventListener('click', function () {
             if (validateStep1(true)) {

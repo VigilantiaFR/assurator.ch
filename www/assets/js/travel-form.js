@@ -198,6 +198,34 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function allStep1FieldsFilled() {
+        if (!validateStep1(false)) return false;
+        var insurer = currentInsurerSelect ? currentInsurerSelect.value : 'ok';
+        var count = travelersCountSelect ? travelersCountSelect.value : 'ok';
+        var coverage = travelCoverageSelect ? travelCoverageSelect.value : 'ok';
+        return insurer !== '' && count !== '' && coverage !== '';
+    }
+
+    var autoAdvanceTimer = null;
+    function checkAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && allStep1FieldsFilled()) {
+                goToStep(2);
+            }
+        }, 350);
+    }
+
+    if (travelTypeSelect) travelTypeSelect.addEventListener('change', checkAutoAdvance);
+    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
+    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
+    if (destinationZoneSelect) destinationZoneSelect.addEventListener('change', checkAutoAdvance);
+    if (departureTimingInput) departureTimingInput.addEventListener('change', checkAutoAdvance);
+    if (tripDurationSelect) tripDurationSelect.addEventListener('change', checkAutoAdvance);
+    if (currentInsurerSelect) currentInsurerSelect.addEventListener('change', checkAutoAdvance);
+    if (travelersCountSelect) travelersCountSelect.addEventListener('change', checkAutoAdvance);
+    if (travelCoverageSelect) travelCoverageSelect.addEventListener('change', checkAutoAdvance);
+
     if (nextButton) {
         nextButton.addEventListener('click', function () {
             if (validateStep1(true)) {

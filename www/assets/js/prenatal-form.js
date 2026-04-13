@@ -177,6 +177,30 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    function allStep1FieldsFilled() {
+        if (!validateStep1(false)) return false;
+        var insurer = insurerSelect ? insurerSelect.value : 'ok';
+        var coverage = desiredCoverageSelect ? desiredCoverageSelect.value : 'ok';
+        return insurer !== '' && coverage !== '';
+    }
+
+    var autoAdvanceTimer = null;
+    function checkAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && allStep1FieldsFilled()) {
+                goToStep(2);
+            }
+        }, 350);
+    }
+
+    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
+    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
+    if (pregnancyStatusSelect) pregnancyStatusSelect.addEventListener('change', checkAutoAdvance);
+    if (deliveryTimingInput) deliveryTimingInput.addEventListener('change', checkAutoAdvance);
+    if (insurerSelect) insurerSelect.addEventListener('change', checkAutoAdvance);
+    if (desiredCoverageSelect) desiredCoverageSelect.addEventListener('change', checkAutoAdvance);
+
     if (nextButton) {
         nextButton.addEventListener('click', function () {
             if (validateStep1(true)) {
