@@ -60,16 +60,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function goToStep(step) {
         currentStep = step;
-
-        if (formStep1) {
-            formStep1.style.display = step === 1 ? 'block' : 'none';
-        }
-        if (formStep2) {
-            formStep2.style.display = step === 2 ? 'block' : 'none';
-        }
-
         setProgress(step);
         updateReturnButton();
+
+        var leaving = step === 2 ? formStep1 : formStep2;
+        var entering = step === 2 ? formStep2 : formStep1;
+
+        if (!leaving || leaving.style.display === 'none') {
+            if (entering) entering.style.display = 'block';
+            return;
+        }
+
+        leaving.classList.add('form-step-out');
+        setTimeout(function () {
+            leaving.style.display = 'none';
+            leaving.classList.remove('form-step-out');
+            if (entering) {
+                entering.classList.add('form-step-pre-in');
+                entering.style.display = 'block';
+                void entering.offsetWidth;
+                entering.classList.remove('form-step-pre-in');
+            }
+        }, 280);
     }
 
     function isEmailValid(value) {

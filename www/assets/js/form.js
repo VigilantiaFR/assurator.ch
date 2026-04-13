@@ -62,16 +62,28 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function goToStep(step) {
         currentStep = step;
-
-        if (formStep1) {
-            formStep1.style.display = step === 1 ? 'block' : 'none';
-        }
-        if (formStep2) {
-            formStep2.style.display = step === 2 ? 'block' : 'none';
-        }
-
         setProgress(step);
         updateReturnButton();
+
+        var leaving = step === 2 ? formStep1 : formStep2;
+        var entering = step === 2 ? formStep2 : formStep1;
+
+        if (!leaving || leaving.style.display === 'none') {
+            if (entering) entering.style.display = 'block';
+            return;
+        }
+
+        leaving.classList.add('form-step-out');
+        setTimeout(function () {
+            leaving.style.display = 'none';
+            leaving.classList.remove('form-step-out');
+            if (entering) {
+                entering.classList.add('form-step-pre-in');
+                entering.style.display = 'block';
+                void entering.offsetWidth; // force reflow
+                entering.classList.remove('form-step-pre-in');
+            }
+        }, 280);
     }
 
     function isEmailValid(value) {
@@ -205,6 +217,22 @@ document.addEventListener('DOMContentLoaded', function () {
             toggleError('error-consent', false);
         });
     }
+
+    var autoAdvanceTimer = null;
+    function checkAutoAdvance() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && validateStep1(false)) {
+                goToStep(2);
+            }
+        }, 350);
+    }
+
+    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
+    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
+    if (ageRangeSelect) ageRangeSelect.addEventListener('change', checkAutoAdvance);
+    if (franchiseSelect) franchiseSelect.addEventListener('change', checkAutoAdvance);
+    if (insurerSelect) insurerSelect.addEventListener('change', checkAutoAdvance);
 
     if (nextButton) {
         nextButton.addEventListener('click', function () {
