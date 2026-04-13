@@ -7,29 +7,283 @@ document.addEventListener('DOMContentLoaded', function () {
     const productTypeInput = document.getElementById('product-type');
     const productOptions = Array.from(document.querySelectorAll('.product-option[data-product-value]'));
 
-    const npaInput = document.getElementById('npa');
-    const localityInput = document.getElementById('locality');
-    const ageRangeSelect = document.getElementById('age-range');
-    const franchiseSelect = document.getElementById('franchise');
-    const insurerSelect = document.getElementById('current_insurer');
-    const accidentCoverageSelect = document.getElementById('accident_coverage');
-
-    const firstNameInput = document.getElementById('first_name');
-    const lastNameInput = document.getElementById('last_name');
-    const phoneInput = document.getElementById('phone');
-    const emailInput = document.getElementById('email');
-    const consentInput = document.getElementById('consent');
-
-    const submitButton = document.getElementById('submit-btn');
-    const nextButton = document.getElementById('step1-next-btn');
-    const progressBarFill = document.getElementById('progress-bar-fill');
-    const loadingOverlay = document.getElementById('loading-overlay');
-
     const formStep1 = document.getElementById('form-step-1');
     const formStep2 = document.getElementById('form-step-2');
-    const prevButtonContainer = document.getElementById('prev-button-container');
+    const formStep3 = document.getElementById('form-step-3');
+
+    const step1NextButton = document.getElementById('step1-next-btn');
+    const step2PrevButton = document.getElementById('step2-prev-btn');
+    const step2NextButton = document.getElementById('step2-next-btn');
+    const step3PrevButton = document.getElementById('step3-prev-btn');
+
+    const submitButton = document.getElementById('submit-btn');
+    const progressBarFill = document.getElementById('progress-bar-fill');
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const productSpecificFieldsContainer = document.getElementById('product-specific-fields');
+
+    const progressStepElements = [
+        document.getElementById('progress-step-1'),
+        document.getElementById('progress-step-2'),
+        document.getElementById('progress-step-3'),
+    ];
+
+    const INSURER_OPTIONS_REQUIRED = `
+        <option value="" disabled selected>Selectionnez</option>
+        <option value="CSS">CSS</option>
+        <option value="Helsana">Helsana</option>
+        <option value="Groupe Mutuel">Groupe Mutuel</option>
+        <option value="SWICA">SWICA</option>
+        <option value="Sanitas">Sanitas</option>
+        <option value="Assura">Assura</option>
+        <option value="Visana">Visana</option>
+        <option value="Concordia">Concordia</option>
+        <option value="KPT/CPT">KPT/CPT</option>
+        <option value="Sympany">Sympany</option>
+        <option value="Atupri">Atupri</option>
+        <option value="OKK">OKK</option>
+        <option value="EGK">EGK</option>
+        <option value="Autre">Autre</option>
+    `;
+
+    const INSURER_OPTIONS_OPTIONAL = `
+        <option value="">Selectionnez</option>
+        <option value="CSS">CSS</option>
+        <option value="Helsana">Helsana</option>
+        <option value="Groupe Mutuel">Groupe Mutuel</option>
+        <option value="SWICA">SWICA</option>
+        <option value="Sanitas">Sanitas</option>
+        <option value="Assura">Assura</option>
+        <option value="Visana">Visana</option>
+        <option value="Concordia">Concordia</option>
+        <option value="KPT/CPT">KPT/CPT</option>
+        <option value="Sympany">Sympany</option>
+        <option value="Atupri">Atupri</option>
+        <option value="OKK">OKK</option>
+        <option value="EGK">EGK</option>
+        <option value="Autre">Autre</option>
+    `;
+
+    const PRODUCT_CONFIG = {
+        LAMAL: {
+            formSource: 'main_form',
+            requiredFields: [],
+            fieldsTemplate: `
+                <div class="form-row">
+                    <div class="form-group">
+                        <p class="text-sm text-slate-500">Aucun champ supplementaire pour ce produit.</p>
+                    </div>
+                </div>
+            `,
+        },
+        LCA: {
+            formSource: 'lca_form',
+            requiredFields: ['lca_need'],
+            fieldsTemplate: `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="lca_need">Type de couverture recherche</label>
+                        <select id="lca_need" name="lca_need" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="hospitalisation">Hospitalisation complementaire</option>
+                            <option value="ambulatoire">Soins ambulatoires</option>
+                            <option value="dentaire">Dentaire</option>
+                            <option value="vision">Vision et lunettes</option>
+                            <option value="medecines_douces">Medecines alternatives</option>
+                            <option value="globale">Couverture globale</option>
+                        </select>
+                        <div class="error-message" id="error-lca_need">Veuillez selectionner votre besoin principal.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="budget_range">Budget mensuel vise (facultatif)</label>
+                        <select id="budget_range" name="budget_range">
+                            <option value="">Selectionnez</option>
+                            <option value="moins_50">Moins de CHF 50</option>
+                            <option value="50_100">CHF 50 - 100</option>
+                            <option value="100_150">CHF 100 - 150</option>
+                            <option value="150_plus">Plus de CHF 150</option>
+                        </select>
+                    </div>
+                </div>
+            `,
+        },
+        PRENATALE: {
+            formSource: 'prenatal_form',
+            requiredFields: ['pregnancy_status', 'delivery_timing'],
+            fieldsTemplate: `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pregnancy_status">Votre statut</label>
+                        <select id="pregnancy_status" name="pregnancy_status" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="en_projet">En projet</option>
+                            <option value="enceinte">Enceinte</option>
+                            <option value="accouchement_bientot">Accouchement prevu bientot</option>
+                        </select>
+                        <div class="error-message" id="error-pregnancy_status">Veuillez indiquer votre statut.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="delivery_timing">Mois prevu / date estimee</label>
+                        <input type="month" id="delivery_timing" name="delivery_timing" required />
+                        <div class="error-message" id="error-delivery_timing">Veuillez indiquer la periode prevue.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="desired_coverage">Couverture recherchee (facultatif)</label>
+                        <select id="desired_coverage" name="desired_coverage">
+                            <option value="">Selectionnez</option>
+                            <option value="grossesse_accouchement">Grossesse et accouchement</option>
+                            <option value="hospitalisation">Hospitalisation maternite</option>
+                            <option value="suivi_postnatal">Suivi postnatal</option>
+                            <option value="couverture_complete">Couverture complete</option>
+                        </select>
+                    </div>
+                </div>
+            `,
+        },
+        VOYAGE: {
+            formSource: 'travel_form',
+            requiredFields: ['travel_type', 'destination_zone', 'departure_timing', 'trip_duration'],
+            fieldsTemplate: `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="travel_type">Type de voyage</label>
+                        <select id="travel_type" name="travel_type" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="vacances">Vacances</option>
+                            <option value="affaires">Voyage d'affaires</option>
+                            <option value="backpacking">Backpacking / Long sejour</option>
+                            <option value="famille">Voyage en famille</option>
+                            <option value="sport">Voyage sportif / Aventure</option>
+                        </select>
+                        <div class="error-message" id="error-travel_type">Veuillez selectionner le type de voyage.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination_zone">Zone de destination</label>
+                        <select id="destination_zone" name="destination_zone" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="europe">Europe</option>
+                            <option value="monde_entier">Monde entier</option>
+                            <option value="amerique">Ameriques</option>
+                            <option value="asie">Asie / Pacifique</option>
+                            <option value="afrique">Afrique / Moyen-Orient</option>
+                        </select>
+                        <div class="error-message" id="error-destination_zone">Veuillez selectionner votre destination.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="departure_timing">Date de depart prevue</label>
+                        <select id="departure_timing" name="departure_timing" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="moins_1_mois">Dans moins d'un mois</option>
+                            <option value="1_3_mois">Dans 1 a 3 mois</option>
+                            <option value="3_6_mois">Dans 3 a 6 mois</option>
+                            <option value="plus_6_mois">Dans plus de 6 mois</option>
+                        </select>
+                        <div class="error-message" id="error-departure_timing">Veuillez indiquer votre date de depart.</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="trip_duration">Duree du voyage</label>
+                        <select id="trip_duration" name="trip_duration" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="moins_1_semaine">Moins d'une semaine</option>
+                            <option value="1_2_semaines">1 a 2 semaines</option>
+                            <option value="2_4_semaines">2 a 4 semaines</option>
+                            <option value="plus_1_mois">Plus d'un mois</option>
+                        </select>
+                        <div class="error-message" id="error-trip_duration">Veuillez selectionner la duree du voyage.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="travelers_count">Nombre de voyageurs (facultatif)</label>
+                        <select id="travelers_count" name="travelers_count">
+                            <option value="">Selectionnez</option>
+                            <option value="1">1 personne</option>
+                            <option value="2">2 personnes</option>
+                            <option value="3-4">3 a 4 personnes</option>
+                            <option value="5+">5 personnes et +</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="travel_coverage">Type de couverture souhaite (facultatif)</label>
+                        <select id="travel_coverage" name="travel_coverage">
+                            <option value="">Selectionnez</option>
+                            <option value="annulation">Annulation voyage</option>
+                            <option value="medicale">Assistance medicale</option>
+                            <option value="bagages">Protection bagages</option>
+                            <option value="complete">Couverture complete</option>
+                        </select>
+                    </div>
+                </div>
+            `,
+        },
+        ANIMAUX: {
+            formSource: 'animals_form',
+            requiredFields: ['animal_type'],
+            fieldsTemplate: `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="animal_type">Type d'animal</label>
+                        <select id="animal_type" name="animal_type" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="chien">Chien</option>
+                            <option value="chat">Chat</option>
+                        </select>
+                        <div class="error-message" id="error-animal_type">Veuillez selectionner le type d'animal.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pet_breed">Race ou gabarit (facultatif)</label>
+                        <input type="text" id="pet_breed" name="pet_breed" placeholder="Ex: Labrador, Europeen, petit gabarit..." />
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="coverage_level">Niveau de couverture souhaite (facultatif)</label>
+                        <select id="coverage_level" name="coverage_level">
+                            <option value="">Selectionnez</option>
+                            <option value="essentielle">Essentielle</option>
+                            <option value="equilibree">Equilibree</option>
+                            <option value="renforcee">Renforcee</option>
+                        </select>
+                    </div>
+                </div>
+            `,
+        },
+        NOUVEAU_RESIDENT: {
+            formSource: 'resident_form',
+            requiredFields: ['installation_timing', 'household_status'],
+            fieldsTemplate: `
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="installation_timing">Mois d'installation en Suisse</label>
+                        <input type="month" id="installation_timing" name="installation_timing" required />
+                        <div class="error-message" id="error-installation_timing">Veuillez indiquer votre mois d'installation.</div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="household_status">Statut</label>
+                        <select id="household_status" name="household_status" required>
+                            <option value="" disabled selected>Selectionnez</option>
+                            <option value="seul">Seul</option>
+                            <option value="couple">Couple</option>
+                            <option value="famille">Famille</option>
+                        </select>
+                        <div class="error-message" id="error-household_status">Veuillez selectionner votre statut.</div>
+                    </div>
+                </div>
+            `,
+        },
+    };
 
     let currentStep = 1;
+    let autoAdvanceTimer = null;
 
     function toggleError(errorId, show) {
         const errorElement = document.getElementById(errorId);
@@ -38,65 +292,74 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function setProgress(step) {
-        if (!progressBarFill) return;
-        progressBarFill.style.width = step === 2 ? '100%' : '50%';
-    }
-
-    function updateReturnButton() {
-        if (!prevButtonContainer) return;
-        prevButtonContainer.innerHTML = '';
-
-        if (currentStep === 2) {
-            const prevButton = document.createElement('button');
-            prevButton.type = 'button';
-            prevButton.className = 'back-btn';
-            prevButton.id = 'prev-btn';
-            prevButton.textContent = 'Retour';
-            prevButton.addEventListener('click', function () {
-                goToStep(1);
-            });
-            prevButtonContainer.appendChild(prevButton);
-        }
-    }
-
-    function goToStep(step) {
-        currentStep = step;
-        setProgress(step);
-        updateReturnButton();
-
-        var leaving = step === 2 ? formStep1 : formStep2;
-        var entering = step === 2 ? formStep2 : formStep1;
-
-        if (!leaving || leaving.style.display === 'none') {
-            if (entering) entering.style.display = 'block';
-            return;
-        }
-
-        leaving.classList.add('form-step-out');
-        setTimeout(function () {
-            leaving.style.display = 'none';
-            leaving.classList.remove('form-step-out');
-            if (entering) {
-                entering.classList.add('form-step-pre-in');
-                entering.style.display = 'block';
-                void entering.offsetWidth; // force reflow
-                entering.classList.remove('form-step-pre-in');
-            }
-        }, 280);
-    }
-
     function isEmailValid(value) {
         return /^\S+@\S+\.\S+$/.test(value);
     }
 
-    function validateStep1(showErrors) {
-        const npaValue = npaInput ? npaInput.value.trim() : '';
-        const localityValue = localityInput ? localityInput.value.trim() : '';
-        const ageRangeValue = ageRangeSelect ? ageRangeSelect.value : '';
-        const franchiseValue = franchiseSelect ? franchiseSelect.value : '';
-        const insurerValue = insurerSelect ? insurerSelect.value : '';
+    function getActiveProduct() {
+        const activeValue = productTypeInput && productTypeInput.value ? productTypeInput.value : 'LAMAL';
+        return PRODUCT_CONFIG[activeValue] ? activeValue : 'LAMAL';
+    }
 
+    function getActiveConfig() {
+        return PRODUCT_CONFIG[getActiveProduct()];
+    }
+
+    function renderProductSpecificFields() {
+        const config = getActiveConfig();
+        if (productSpecificFieldsContainer) {
+            productSpecificFieldsContainer.innerHTML = config.fieldsTemplate;
+        }
+    }
+
+    function setProgress(step) {
+        if (progressBarFill) {
+            // Align with the 3 step markers (left / center / right).
+            const widthByStep = {
+                1: '0%',
+                2: '50%',
+                3: '100%',
+            };
+            progressBarFill.style.width = widthByStep[step] || '0%';
+        }
+
+        progressStepElements.forEach(function (stepElement, index) {
+            if (!stepElement) return;
+            const icon = stepElement.querySelector('i');
+            const isDone = index + 1 <= step;
+
+            stepElement.classList.toggle('text-slate-300', !isDone);
+            stepElement.classList.toggle('text-slate-600', isDone);
+
+            if (icon) {
+                icon.classList.toggle('text-slate-300', !isDone);
+                icon.classList.toggle('text-rose-500', isDone);
+            }
+        });
+    }
+
+    function goToStep(step) {
+        currentStep = step;
+        if (formStep1) formStep1.style.display = step === 1 ? 'block' : 'none';
+        if (formStep2) formStep2.style.display = step === 2 ? 'block' : 'none';
+        if (formStep3) formStep3.style.display = step === 3 ? 'block' : 'none';
+        setProgress(step);
+    }
+
+    function validateStep1(showErrors) {
+        const npaInput = leadForm.querySelector('[name="npa"]');
+        const localityInput = leadForm.querySelector('[name="locality"]');
+        const ageRangeInput = leadForm.querySelector('[name="age_range"]');
+        const franchiseInput = leadForm.querySelector('[name="franchise"]');
+        const insurerInput = leadForm.querySelector('[name="current_insurer"]');
+
+        const npaValue = npaInput && typeof npaInput.value === 'string' ? npaInput.value.trim() : '';
+        const localityValue = localityInput && typeof localityInput.value === 'string' ? localityInput.value.trim() : '';
+        const ageRangeValue = ageRangeInput && typeof ageRangeInput.value === 'string' ? ageRangeInput.value.trim() : '';
+        const franchiseValue = franchiseInput && typeof franchiseInput.value === 'string' ? franchiseInput.value.trim() : '';
+        const insurerValue = insurerInput && typeof insurerInput.value === 'string' ? insurerInput.value.trim() : '';
+
+        const isProductValid = !!getActiveProduct();
         const isNpaValid = /^\d{4}$/.test(npaValue);
         const isLocalityValid = localityValue !== '';
         const isAgeRangeValid = ageRangeValue !== '';
@@ -106,15 +369,42 @@ document.addEventListener('DOMContentLoaded', function () {
         if (showErrors) {
             toggleError('error-npa', !isNpaValid);
             toggleError('error-locality', !isLocalityValid);
-            toggleError('error-age-range', !isAgeRangeValid);
+            toggleError('error-age_range', !isAgeRangeValid);
             toggleError('error-franchise', !isFranchiseValid);
             toggleError('error-current_insurer', !isInsurerValid);
         }
 
-        return isNpaValid && isLocalityValid && isAgeRangeValid && isFranchiseValid && isInsurerValid;
+        return isProductValid && isNpaValid && isLocalityValid && isAgeRangeValid && isFranchiseValid && isInsurerValid;
     }
 
     function validateStep2(showErrors) {
+        const config = getActiveConfig();
+        const uniqueRequiredFields = Array.from(new Set(config.requiredFields || []));
+
+        return uniqueRequiredFields.every(function (fieldName) {
+            const field = leadForm.querySelector('[name="' + fieldName + '"]');
+            if (!field) {
+                return false;
+            }
+
+            const rawValue = typeof field.value === 'string' ? field.value.trim() : '';
+            const isValid = rawValue !== '';
+
+            if (showErrors) {
+                toggleError('error-' + fieldName, !isValid);
+            }
+
+            return isValid;
+        });
+    }
+
+    function validateStep3(showErrors) {
+        const firstNameInput = document.getElementById('first_name');
+        const lastNameInput = document.getElementById('last_name');
+        const phoneInput = document.getElementById('phone');
+        const emailInput = document.getElementById('email');
+        const consentInput = document.getElementById('consent');
+
         const firstNameValue = firstNameInput ? firstNameInput.value.trim() : '';
         const lastNameValue = lastNameInput ? lastNameInput.value.trim() : '';
         const phoneValue = phoneInput ? phoneInput.value.trim() : '';
@@ -137,6 +427,15 @@ document.addEventListener('DOMContentLoaded', function () {
         return isFirstNameValid && isLastNameValid && isPhoneValid && isEmailFieldValid && consentValue;
     }
 
+    function checkAutoAdvanceToStep2() {
+        clearTimeout(autoAdvanceTimer);
+        autoAdvanceTimer = setTimeout(function () {
+            if (currentStep === 1 && validateStep1(false)) {
+                goToStep(2);
+            }
+        }, 250);
+    }
+
     function selectProduct(button) {
         productOptions.forEach(function (option) {
             option.classList.remove('is-selected');
@@ -147,135 +446,114 @@ document.addEventListener('DOMContentLoaded', function () {
         if (productTypeInput && value) {
             productTypeInput.value = value;
         }
+
+        renderProductSpecificFields();
+        checkAutoAdvanceToStep2();
     }
 
-    if (productOptions.length > 0) {
-        productOptions.forEach(function (button) {
-            button.addEventListener('click', function () {
-                selectProduct(button);
-            });
+    productOptions.forEach(function (button) {
+        button.addEventListener('click', function () {
+            selectProduct(button);
         });
-    }
+    });
 
-    if (npaInput) {
-        npaInput.addEventListener('input', function () {
-            this.value = this.value.replace(/[^0-9]/g, '').substring(0, 4);
-            toggleError('error-npa', false);
-        });
-    }
-
-    if (localityInput) {
-        localityInput.addEventListener('input', function () {
-            toggleError('error-locality', false);
-        });
-    }
-
-    if (ageRangeSelect) {
-        ageRangeSelect.addEventListener('change', function () {
-            toggleError('error-age-range', false);
-        });
-    }
-
-    if (franchiseSelect) {
-        franchiseSelect.addEventListener('change', function () {
-            toggleError('error-franchise', false);
-        });
-    }
-
-    if (insurerSelect) {
-        insurerSelect.addEventListener('change', function () {
-            toggleError('error-current_insurer', false);
-        });
-    }
-
-    if (firstNameInput) {
-        firstNameInput.addEventListener('input', function () {
-            toggleError('error-first_name', false);
-        });
-    }
-
-    if (lastNameInput) {
-        lastNameInput.addEventListener('input', function () {
-            toggleError('error-last_name', false);
-        });
-    }
-
-    if (phoneInput) {
-        phoneInput.addEventListener('input', function () {
-            toggleError('error-phone', false);
-        });
-    }
-
-    if (emailInput) {
-        emailInput.addEventListener('input', function () {
-            toggleError('error-email', false);
-        });
-    }
-
-    if (consentInput) {
-        consentInput.addEventListener('change', function () {
-            toggleError('error-consent', false);
-        });
-    }
-
-    var autoAdvanceTimer = null;
-    function checkAutoAdvance() {
-        clearTimeout(autoAdvanceTimer);
-        autoAdvanceTimer = setTimeout(function () {
-            if (currentStep === 1 && validateStep1(false)) {
-                goToStep(2);
-            }
-        }, 350);
-    }
-
-    if (npaInput) npaInput.addEventListener('input', checkAutoAdvance);
-    if (localityInput) localityInput.addEventListener('input', checkAutoAdvance);
-    if (ageRangeSelect) ageRangeSelect.addEventListener('change', checkAutoAdvance);
-    if (franchiseSelect) franchiseSelect.addEventListener('change', checkAutoAdvance);
-    if (insurerSelect) insurerSelect.addEventListener('change', checkAutoAdvance);
-
-    if (nextButton) {
-        nextButton.addEventListener('click', function () {
+    if (step1NextButton) {
+        step1NextButton.addEventListener('click', function () {
             if (validateStep1(true)) {
                 goToStep(2);
             }
         });
     }
 
-    leadForm.addEventListener('submit', function (event) {
-        event.preventDefault();
-
-        const step1Valid = validateStep1(true);
-        if (!step1Valid) {
+    if (step2PrevButton) {
+        step2PrevButton.addEventListener('click', function () {
             goToStep(1);
+        });
+    }
+
+    if (step2NextButton) {
+        step2NextButton.addEventListener('click', function () {
+            if (validateStep2(true)) {
+                goToStep(3);
+            }
+        });
+    }
+
+    if (step3PrevButton) {
+        step3PrevButton.addEventListener('click', function () {
+            goToStep(2);
+        });
+    }
+
+    leadForm.addEventListener('input', function (event) {
+        const target = event.target;
+        if (!target || !target.name) {
             return;
         }
 
+        if (target.name === 'npa' && typeof target.value === 'string') {
+            target.value = target.value.replace(/[^0-9]/g, '').substring(0, 4);
+        }
+
+        if (target.name === 'consent') {
+            toggleError('error-consent', false);
+            return;
+        }
+
+        toggleError('error-' + target.name, false);
+        checkAutoAdvanceToStep2();
+    });
+
+    leadForm.addEventListener('change', function (event) {
+        const target = event.target;
+        if (!target || !target.name) {
+            return;
+        }
+
+        if (target.name === 'consent') {
+            toggleError('error-consent', false);
+            return;
+        }
+
+        toggleError('error-' + target.name, false);
+        checkAutoAdvanceToStep2();
+    });
+
+    leadForm.addEventListener('submit', function (event) {
+        event.preventDefault();
+
         if (currentStep === 1) {
+            const step1Valid = validateStep1(true);
+            if (!step1Valid) {
+                return;
+            }
             goToStep(2);
             return;
         }
 
         const step2Valid = validateStep2(true);
         if (!step2Valid) {
+            goToStep(2);
             return;
         }
 
-        const formData = new FormData();
-        formData.append('product_type', productTypeInput ? productTypeInput.value : 'LAMAL');
-        formData.append('npa', npaInput ? npaInput.value.trim() : '');
-        formData.append('locality', localityInput ? localityInput.value.trim() : '');
-        formData.append('age_range', ageRangeSelect ? ageRangeSelect.value : '');
-        formData.append('franchise', franchiseSelect ? franchiseSelect.value : '');
-        formData.append('current_insurer', insurerSelect ? insurerSelect.value : '');
-        formData.append('accident_coverage', accidentCoverageSelect ? accidentCoverageSelect.value : '');
-        formData.append('first_name', firstNameInput ? firstNameInput.value.trim() : '');
-        formData.append('last_name', lastNameInput ? lastNameInput.value.trim() : '');
-        formData.append('phone', phoneInput ? phoneInput.value.trim() : '');
-        formData.append('email', emailInput ? emailInput.value.trim() : '');
-        formData.append('consent', consentInput && consentInput.checked ? 'on' : '');
-        formData.append('lpd_agreement', 'oui');
-        formData.append('form_source', 'main_form');
+        if (currentStep === 2) {
+            goToStep(3);
+            return;
+        }
+
+        const step3Valid = validateStep3(true);
+        if (!step3Valid) {
+            return;
+        }
+
+        const activeProduct = getActiveProduct();
+        const config = getActiveConfig();
+
+        const formData = new FormData(leadForm);
+        formData.set('product_type', activeProduct);
+        formData.set('form_source', config.formSource);
+        formData.set('lpd_agreement', 'oui');
 
         if (submitButton) {
             submitButton.disabled = true;
@@ -302,13 +580,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
 
                 if (data.success) {
-                    var ecData = {};
+                    const emailInput = document.getElementById('email');
+                    const phoneInput = document.getElementById('phone');
+
+                    const ecData = {};
                     if (emailInput && emailInput.value.trim()) {
                         ecData.email = emailInput.value.trim().toLowerCase();
                     }
                     if (phoneInput && phoneInput.value.trim()) {
                         ecData.phone_number = phoneInput.value.trim();
                     }
+
                     window.sessionStorage.setItem('_assr_ec', JSON.stringify(ecData));
                     window.location.href = 'merci.html';
                 } else {
@@ -320,7 +602,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 if (loadingOverlay) {
                     loadingOverlay.style.display = 'none';
                 }
-                alert('Une erreur réseau est survenue.');
+                alert('Une erreur reseau est survenue.');
             })
             .finally(function () {
                 if (submitButton) {
@@ -332,4 +614,16 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             });
     });
+
+    const defaultSelectedButton = productOptions.find(function (button) {
+        return button.classList.contains('is-selected');
+    }) || productOptions[0];
+
+    if (defaultSelectedButton) {
+        selectProduct(defaultSelectedButton);
+    } else {
+        renderProductSpecificFields();
+    }
+
+    goToStep(1);
 });
