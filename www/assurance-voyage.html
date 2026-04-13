@@ -351,6 +351,8 @@
             gtag("consent", "default", { ad_storage: "denied", analytics_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
         </script>
         <script src="https://cdn.jsdelivr.net/npm/tarteaucitronjs@1.26.0/tarteaucitron.min.js"></script>
+        <script src="assets/js/cookie-gate.js"></script>
+        <script src="assets/js/gtm-consent.js"></script>
         <script>
             function getTacConsentDecision() {
                 if (window.tarteaucitron && window.tarteaucitron.state && typeof window.tarteaucitron.state.googletagmanager === "boolean") return window.tarteaucitron.state.googletagmanager;
@@ -403,7 +405,21 @@
                 mandatory: true,
                 mandatoryCta: true,
             });
-            tarteaucitron.user.googletagmanagerId = "GTM-WMPV9ML7";
+            window.ASSR_GTM_ID = "GTM-WMPV9ML7";
+            tarteaucitron.services.googletagmanager = {
+                key: "googletagmanager",
+                type: "analytics",
+                name: "Google Tag Manager",
+                needConsent: true,
+                cookies: ["_ga", "_gid", "_gcl_au"],
+                js: function () {
+                    syncConsentFromTac();
+                },
+                fallback: function () {
+                    syncConsentFromTac();
+                },
+            };
+
             (tarteaucitron.job = tarteaucitron.job || []).push("googletagmanager");
             document.addEventListener("click", function (e) {
                 if (e.target && e.target.closest("#tarteaucitronRoot")) window.setTimeout(syncConsentFromTac, 100);
