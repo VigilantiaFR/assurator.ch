@@ -386,7 +386,7 @@ Vous choisissez CHF 300 de franchise pour économiser CHF 150/an. Mais vous visi
 
 Un assureur demande CHF 100/mois pour la même couverture qu'un autre qui demande CHF 60/mois. Sur 10 ans, c'est CHF 4 800 de différence.
 
-**Comment l'éviter:** Utilisez un comparateur (Comparis.ch, Moneyland.ch) ou appelez directement 3-4 assureurs. 15 minutes de comparaison économisent des milliers.
+**Comment l'éviter:** Utilisez Assurator.ch ou appelez directement 3-4 assureurs. 15 minutes de comparaison économisent des milliers.
 
 ---
 
@@ -429,7 +429,7 @@ Voici ce que vous devez faire maintenant:
 3. ✅ Notez l'âge de votre animal
 
 **Ce Mois-ci:**
-1. Visitez Comparis.ch ou Moneyland.ch
+1. Visitez Assurator.ch
 2. Remplissez un devis pour responsabilité civile + santé
 3. Comparez 3-4 options
 4. S'enregistrer en ligne (15 minutes)
@@ -446,7 +446,7 @@ Si vous habitez dans l'un des 15 cantons qui rendent la responsabilité civile o
 
 Le coût? Environ CHF 100-200/mois pour les deux. Le bénéfice? Pas de ruine financière si quelque chose se passe mal.
 
-**Êtes-vous prêt à protéger votre compagnon et votre portefeuille?** Obtenez un devis gratuit en moins de 2 minutes sur [Comparis.ch](https://comparis.ch) ou appelez directement CSS, Helvetia ou Elvia pour connaître vos options.
+**Êtes-vous prêt à protéger votre compagnon et votre portefeuille?** Obtenez un devis gratuit en moins de 2 minutes sur [Assurator.ch](https://assurator.ch) ou appelez directement les assureurs pour connaître vos options.
 
 Votre animal mérite les meilleurs soins. Vous méritez la paix d'esprit.
 

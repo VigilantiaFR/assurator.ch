@@ -209,4 +209,4 @@ Sandrine, 42 ans, souscrit assurance prénatale. Prime base: CHF 200/an. Âge 42
 
 ---
 
-**Prêt à protéger grossesse risque?** Comparez assurances prénatales spécialisées sur [Comparis.ch](https://comparis.ch) — demandez couverture "grossesse à risque" explicitement.
+**Prêt à protéger une grossesse à risque?** Comparez les assurances prénatales spécialisées sur [Assurator.ch](https://assurator.ch) et demandez explicitement une couverture "grossesse à risque".

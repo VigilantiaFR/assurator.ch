@@ -376,7 +376,7 @@ Non. L'assurance doit être achetée avant de partir. C'est un critère essentie
 
 **Quelle est la meilleure assurance voyage pour la Suisse?**
 
-Comparis.ch, Moneyland.ch, et Bonus.ch offrent les meilleures comparaisons. Les meilleurs assureurs incluent Europ Assistance, AXA, Allianz, et SWICA. Comparez les prix et les franchises pour votre situation spécifique.
+Assurator.ch vous permet de comparer rapidement les offres d'assurance voyage. Comparez les prix, les franchises et les exclusions selon votre situation spécifique.
 
 ---
 
@@ -388,7 +388,7 @@ Comparis.ch, Moneyland.ch, et Bonus.ch offrent les meilleures comparaisons. Les 
 3. ✅ Notez: où voyagez-vous généralement? (risque bas/élevé?)
 
 **Ce Mois:**
-1. Visitez Comparis.ch, Moneyland.ch, ou Bonus.ch
+1. Visitez Assurator.ch
 2. Comparez 3-4 options
 3. Vérifiez les franchises et les exclusions
 4. Achetez avant votre voyage
@@ -403,7 +403,7 @@ L'assurance voyage en Suisse n'est pas compliquée une fois que vous comprenez l
 
 C'est peut-être l'investissement le plus simple de votre vie.
 
-**Êtes-vous prêt à protéger votre voyage et votre portefeuille?** Obtenez un devis gratuit en 2 minutes sur [Comparis.ch](https://comparis.ch) ou [Moneyland.ch](https://moneyland.ch). Vérifiez les prix. Comparez les couvertures.
+**Êtes-vous prêt à protéger votre voyage et votre portefeuille?** Obtenez un devis gratuit en 2 minutes sur [Assurator.ch](https://assurator.ch). Vérifiez les prix. Comparez les couvertures.
 
 Partez l'esprit léger. Vous méritez de profiter de vos voyages sans stress financier.
 
