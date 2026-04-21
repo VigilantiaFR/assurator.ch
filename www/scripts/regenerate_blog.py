@@ -9,6 +9,8 @@ import html
 import json
 import math
 import re
+import subprocess
+import sys
 
 import markdown
 import yaml
@@ -20,79 +22,79 @@ SITE_URL = "https://www.assurator.ch"
 
 
 FRENCH_COMPARATIF = """
-# Comparatif assurance prénatale en Suisse 2026: guide complet
+# Comparatif assurance prÃ©natale en Suisse 2026: guide complet
 
-Vous disposez d'une fenêtre limitée pour protéger la couverture santé de votre bébé dès la naissance. En Suisse, l'inscription prénatale est stratégique: elle influence l'accès à l'assurance complémentaire et le coût réel de votre protection familiale.
+Vous disposez d'une fenÃªtre limitÃ©e pour protÃ©ger la couverture santÃ© de votre bÃ©bÃ© dÃ¨s la naissance. En Suisse, l'inscription prÃ©natale est stratÃ©gique: elle influence l'accÃ¨s Ã  l'assurance complÃ©mentaire et le coÃ»t rÃ©el de votre protection familiale.
 
-Ce guide vous aide à comparer les options 2026 avec une méthode claire: bon timing, bon niveau de couverture, et décisions financières cohérentes.
+Ce guide vous aide Ã  comparer les options 2026 avec une mÃ©thode claire: bon timing, bon niveau de couverture, et dÃ©cisions financiÃ¨res cohÃ©rentes.
 
-## Points clés à retenir
+## Points clÃ©s Ã  retenir
 
-> - La période la plus sûre pour l'inscription prénatale est généralement entre la 20e et la 30e semaine de grossesse.
-> - La LAMal de base est réglementée et identique dans ses prestations légales, quel que soit l'assureur.
-> - La vraie différence se joue sur la complémentaire: options, plafonds, exclusions, qualité de service.
-> - Le choix de franchise (CHF 0, 100, 300, 600) a un impact fort sur le coût total sur plusieurs années.
-> - Attendre trop tard est l'erreur la plus coûteuse pour les familles.
+> - La pÃ©riode la plus sÃ»re pour l'inscription prÃ©natale est gÃ©nÃ©ralement entre la 20e et la 30e semaine de grossesse.
+> - La LAMal de base est rÃ©glementÃ©e et identique dans ses prestations lÃ©gales, quel que soit l'assureur.
+> - La vraie diffÃ©rence se joue sur la complÃ©mentaire: options, plafonds, exclusions, qualitÃ© de service.
+> - Le choix de franchise (CHF 0, 100, 300, 600) a un impact fort sur le coÃ»t total sur plusieurs annÃ©es.
+> - Attendre trop tard est l'erreur la plus coÃ»teuse pour les familles.
 
 ---
 
-## Assurance prénatale: de quoi parle-t-on exactement?
+## Assurance prÃ©natale: de quoi parle-t-on exactement?
 
-L'assurance prénatale concerne l'assurance de l'enfant à naître, activée à la naissance. Beaucoup de parents confondent avec l'assurance maternité de la mère.
+L'assurance prÃ©natale concerne l'assurance de l'enfant Ã  naÃ®tre, activÃ©e Ã  la naissance. Beaucoup de parents confondent avec l'assurance maternitÃ© de la mÃ¨re.
 
 ### Ne pas confondre
 
-**Assurance maternité (mère)**
+**Assurance maternitÃ© (mÃ¨re)**
 - Couvre le suivi de grossesse et l'accouchement dans le cadre LAMal.
-- S'applique aux soins médicaux de la mère pendant la période prévue par la loi.
+- S'applique aux soins mÃ©dicaux de la mÃ¨re pendant la pÃ©riode prÃ©vue par la loi.
 
-**Assurance prénatale (bébé)**
-- Pré-inscription du bébé pendant la grossesse.
-- Effet à la naissance.
-- Permet souvent un accès plus favorable à certaines couvertures complémentaires.
+**Assurance prÃ©natale (bÃ©bÃ©)**
+- PrÃ©-inscription du bÃ©bÃ© pendant la grossesse.
+- Effet Ã  la naissance.
+- Permet souvent un accÃ¨s plus favorable Ã  certaines couvertures complÃ©mentaires.
 
 ---
 
 ## Quand s'inscrire?
 
-| Période | Action recommandée | Pourquoi |
+| PÃ©riode | Action recommandÃ©e | Pourquoi |
 |---|---|---|
-| Semaines 1 à 16 | Comparer 2 à 3 assureurs | Préparer les décisions sans stress |
-| Semaines 17 à 24 | Choisir structure base + complémentaire | Analyser garanties et exclusions |
-| **Semaines 20 à 30** | **Finaliser l'inscription** | **Fenêtre optimale** |
-| Semaines 31 à 38 | Finaliser immédiatement si non fait | Éviter tout retard |
-| Après naissance | Régularisation possible | Conditions potentiellement moins favorables |
+| Semaines 1 Ã  16 | Comparer 2 Ã  3 assureurs | PrÃ©parer les dÃ©cisions sans stress |
+| Semaines 17 Ã  24 | Choisir structure base + complÃ©mentaire | Analyser garanties et exclusions |
+| **Semaines 20 Ã  30** | **Finaliser l'inscription** | **FenÃªtre optimale** |
+| Semaines 31 Ã  38 | Finaliser immÃ©diatement si non fait | Ã‰viter tout retard |
+| AprÃ¨s naissance | RÃ©gularisation possible | Conditions potentiellement moins favorables |
 
 ### Si vous attendez trop
 
-- Questionnaires médicaux plus stricts en complémentaire
+- Questionnaires mÃ©dicaux plus stricts en complÃ©mentaire
 - Acceptation moins automatique
 - Exclusions possibles selon le dossier
-- Coûts potentiellement plus élevés dans la durée
+- CoÃ»ts potentiellement plus Ã©levÃ©s dans la durÃ©e
 
 ---
 
-## LAMal vs complémentaire: la vraie décision
+## LAMal vs complÃ©mentaire: la vraie dÃ©cision
 
-La base LAMal est commune à tous les assureurs sur le périmètre légal. Les différences majeures concernent surtout:
+La base LAMal est commune Ã  tous les assureurs sur le pÃ©rimÃ¨tre lÃ©gal. Les diffÃ©rences majeures concernent surtout:
 
 - Les primes
 - Les plafonds de remboursement
 - Les exclusions
-- La qualité du service client et des remboursements
+- La qualitÃ© du service client et des remboursements
 
 ### Ce que couvre la base
 
 - Soins essentiels
 - Hospitalisation en division commune
-- Médicaments et actes reconnus
+- MÃ©dicaments et actes reconnus
 
-### Ce que la complémentaire peut ajouter
+### Ce que la complÃ©mentaire peut ajouter
 
-- Division privée ou semi-privée
-- Choix élargi des praticiens
+- Division privÃ©e ou semi-privÃ©e
+- Choix Ã©largi des praticiens
 - Prestations additionnelles selon contrat
-- Confort et options spécifiques
+- Confort et options spÃ©cifiques
 
 ---
 
@@ -100,90 +102,90 @@ La base LAMal est commune à tous les assureurs sur le périmètre légal. Les d
 
 ### CSS
 
-- Souvent compétitif sur le budget global
-- Bon équilibre prix/prestations
-- Vérifier les plafonds exacts par option
+- Souvent compÃ©titif sur le budget global
+- Bon Ã©quilibre prix/prestations
+- VÃ©rifier les plafonds exacts par option
 
 ### Sanitas
 
 - Parcours client clair
 - Bon niveau de service
-- Vérifier le coût final selon votre canton
+- VÃ©rifier le coÃ»t final selon votre canton
 
 ### SWICA
 
-- Réseau solide dans plusieurs régions
+- RÃ©seau solide dans plusieurs rÃ©gions
 - Bon compromis pour familles actives
-- Vérifier les conditions hors réseau
+- VÃ©rifier les conditions hors rÃ©seau
 
 ### Helsana
 
 - Offre modulaire riche
-- Intéressant pour personnaliser finement
+- IntÃ©ressant pour personnaliser finement
 - Attention au risque de surassurance
 
 ### Sympany
 
 - Packs famille lisibles
-- Réductions intéressantes selon la configuration
-- Vérifier les limites annuelles
+- RÃ©ductions intÃ©ressantes selon la configuration
+- VÃ©rifier les limites annuelles
 
 ### Zurich
 
-- Logique multi-assurances intéressante pour certains foyers
+- Logique multi-assurances intÃ©ressante pour certains foyers
 - Possibles rabais de regroupement
-- Vérifier la couverture réelle avant de prioriser le prix
+- VÃ©rifier la couverture rÃ©elle avant de prioriser le prix
 
 ---
 
-## Franchise: l'arbitrage sous-estimé
+## Franchise: l'arbitrage sous-estimÃ©
 
-La franchise basse coûte plus cher en prime, mais réduit les sorties d'argent imprévues. La franchise élevée baisse la prime mais augmente les dépenses en cas de soins.
+La franchise basse coÃ»te plus cher en prime, mais rÃ©duit les sorties d'argent imprÃ©vues. La franchise Ã©levÃ©e baisse la prime mais augmente les dÃ©penses en cas de soins.
 
-Pour un bébé et un jeune enfant, la franchise basse est souvent plus stable budgétairement.
+Pour un bÃ©bÃ© et un jeune enfant, la franchise basse est souvent plus stable budgÃ©tairement.
 
 ---
 
-## Éviter les erreurs coûteuses
+## Ã‰viter les erreurs coÃ»teuses
 
 1. Attendre trop tard pour l'inscription.
 2. Comparer uniquement la prime mensuelle.
 3. Ignorer plafonds et exclusions.
-4. Choisir une franchise élevée sans simulation réelle.
-5. Négliger le service client et les délais de remboursement.
+4. Choisir une franchise Ã©levÃ©e sans simulation rÃ©elle.
+5. NÃ©gliger le service client et les dÃ©lais de remboursement.
 
 ---
 
 ## Plan d'action
 
 1. Comparez 3 assureurs maximum.
-2. Simulez prime + franchise + reste à charge.
-3. Vérifiez par écrit les exclusions importantes.
-4. Finalisez pendant la grossesse, idéalement avant la 30e semaine.
-5. Conservez confirmations et conditions générales.
+2. Simulez prime + franchise + reste Ã  charge.
+3. VÃ©rifiez par Ã©crit les exclusions importantes.
+4. Finalisez pendant la grossesse, idÃ©alement avant la 30e semaine.
+5. Conservez confirmations et conditions gÃ©nÃ©rales.
 
 ---
 
 ## Conclusion
 
-Le bon choix prénatal en 2026 repose sur deux leviers: agir tôt et comparer intelligemment. L'objectif n'est pas seulement de trouver la prime la plus basse, mais d'assurer un coût total maîtrisé sur plusieurs années, avec une couverture réellement utile pour votre famille.
+Le bon choix prÃ©natal en 2026 repose sur deux leviers: agir tÃ´t et comparer intelligemment. L'objectif n'est pas seulement de trouver la prime la plus basse, mais d'assurer un coÃ»t total maÃ®trisÃ© sur plusieurs annÃ©es, avec une couverture rÃ©ellement utile pour votre famille.
 """.strip()
 
 
 def french_date(date_str: str) -> str:
     months = {
         1: "janvier",
-        2: "février",
+        2: "fÃ©vrier",
         3: "mars",
         4: "avril",
         5: "mai",
         6: "juin",
         7: "juillet",
-        8: "août",
+        8: "aoÃ»t",
         9: "septembre",
         10: "octobre",
         11: "novembre",
-        12: "décembre",
+        12: "dÃ©cembre",
     }
     dt = datetime.strptime(date_str, "%Y-%m-%d")
     return f"{dt.day} {months[dt.month]} {dt.year}"
@@ -210,7 +212,7 @@ def nav_html() -> str:
                 <div class="hidden md:flex items-center space-x-8">
                     <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Assurance Maladie</a>
                     <a href="index.html" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Assurance Vie</a>
-                    <a href="index.html#features" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">À propos</a>
+                    <a href="index.html#features" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Ã€ propos</a>
                     <a href="blog.html" class="text-sm font-medium text-brand-600">Blog</a>
                     <a href="index.html#footer" class="text-sm font-medium text-slate-600 hover:text-brand-600 transition-colors">Contact</a>
                 </div>
@@ -238,15 +240,15 @@ def footer_html() -> str:
                         <h4 class="font-semibold text-white mb-4">Assurances</h4>
                         <ul class="space-y-2 text-sm">
                             <li><a href="index.html" class="hover:text-brand-400 transition-colors">Assurance Maladie</a></li>
-                            <li><a href="assurance-lca.html" class="hover:text-brand-400 transition-colors">Assurance Complémentaire</a></li>
-                            <li><a href="assurance-prenatalite.html" class="hover:text-brand-400 transition-colors">Assurance Prénatale</a></li>
+                            <li><a href="assurance-lca.html" class="hover:text-brand-400 transition-colors">Assurance ComplÃ©mentaire</a></li>
+                            <li><a href="assurance-prenatalite.html" class="hover:text-brand-400 transition-colors">Assurance PrÃ©natale</a></li>
                             <li><a href="assurance-animaux.html" class="hover:text-brand-400 transition-colors">Assurance Animaux</a></li>
                         </ul>
                     </div>
                     <div>
                         <h4 class="font-semibold text-white mb-4">Entreprise</h4>
                         <ul class="space-y-2 text-sm">
-                            <li><a href="index.html#features" class="hover:text-brand-400 transition-colors">À propos</a></li>
+                            <li><a href="index.html#features" class="hover:text-brand-400 transition-colors">Ã€ propos</a></li>
                             <li><a href="blog.html" class="hover:text-brand-400 transition-colors">Blog</a></li>
                             <li><a href="mailto:info@assurator.ch" class="hover:text-brand-400 transition-colors">Contact</a></li>
                         </ul>
@@ -255,12 +257,12 @@ def footer_html() -> str:
                         <h4 class="font-semibold text-white mb-4">Support</h4>
                         <ul class="space-y-2 text-sm">
                             <li><a href="#" class="hover:text-brand-400 transition-colors">Conditions d'utilisation</a></li>
-                            <li><a href="#" class="hover:text-brand-400 transition-colors">Politique de confidentialité</a></li>
+                            <li><a href="#" class="hover:text-brand-400 transition-colors">Politique de confidentialitÃ©</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                    <p class="text-sm text-slate-500">© 2026 Assurator.ch - Tous droits réservés</p>
+                    <p class="text-sm text-slate-500">Â© 2026 Assurator.ch - Tous droits rÃ©servÃ©s</p>
                     <div class="flex gap-4">
                         <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-600 flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
                         <a href="#" class="w-10 h-10 rounded-full bg-slate-800 hover:bg-brand-600 flex items-center justify-center transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
@@ -437,7 +439,7 @@ def render_articles() -> list[dict]:
                 <header class="mb-8">
                     <p class="text-sm font-semibold text-brand-700 uppercase tracking-wide mb-3">Guide pratique assurance Suisse</p>
                     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">{html.escape(h1)}</h1>
-                    <p class="text-slate-500 mb-4">Publié le {french_date(published)} &middot; Mis à jour le {french_date(updated)} &middot; {reading_time} min de lecture</p>
+                    <p class="text-slate-500 mb-4">PubliÃ© le {french_date(published)} &middot; Mis Ã  jour le {french_date(updated)} &middot; {reading_time} min de lecture</p>
                     <p class="text-lg text-slate-600">{html.escape(meta_description)}</p>
                 </header>
                 <div class="mb-8 flex flex-wrap gap-2">{keyword_badges}</div>
@@ -517,7 +519,7 @@ def render_blog_index(articles: list[dict]) -> None:
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Blog Assurance Suisse 2026 | Assurator.ch</title>
-        <meta name="description" content="Le blog Assurator.ch: conseils, comparatifs et guides pratiques sur les assurances en Suisse (maladie, prénatale, voyage, animaux, famille)." />
+        <meta name="description" content="Le blog Assurator.ch: conseils, comparatifs et guides pratiques sur les assurances en Suisse (maladie, prÃ©natale, voyage, animaux, famille)." />
         <meta name="robots" content="index,follow,max-image-preview:large" />
         <link rel="canonical" href="{SITE_URL}/blog.html" />
         <meta property="og:type" content="website" />
@@ -565,7 +567,7 @@ def render_blog_index(articles: list[dict]) -> None:
                         Espace blog
                     </p>
                     <h1 class="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-4">Le blog Assurator.ch</h1>
-                    <p class="text-lg text-slate-600">Actualités, conseils et guides pratiques pour mieux comprendre les assurances en Suisse.</p>
+                    <p class="text-lg text-slate-600">ActualitÃ©s, conseils et guides pratiques pour mieux comprendre les assurances en Suisse.</p>
                 </div>
             </section>
 
@@ -589,10 +591,14 @@ def main() -> None:
     demo = ROOT / "blog-comment-choisir-sa-franchise-2026.html"
     if demo.exists():
         demo.unlink()
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_sitemap.py")], check=True)
+    subprocess.run([sys.executable, str(ROOT / "scripts" / "generate_agent_skills_index.py")], check=True)
+    
 
-    print(f"Articles générés: {len(articles)}")
+    print(f"Articles gÃ©nÃ©rÃ©s: {len(articles)}")
 
 
 if __name__ == "__main__":
     main()
+
 

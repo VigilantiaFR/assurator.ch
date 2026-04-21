@@ -1,0 +1,13 @@
+{
+  "resource": "https://www.assurator.ch/",
+  "authorization_servers": [
+    "https://www.assurator.ch"
+  ],
+  "scopes_supported": [
+    "quotes:read",
+    "quotes:write"
+  ],
+  "bearer_methods_supported": [
+    "header"
+  ]
+}

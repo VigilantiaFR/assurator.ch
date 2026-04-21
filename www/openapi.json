@@ -1,0 +1,58 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Assurator Public API",
+    "version": "1.0.0",
+    "description": "Public quote-request endpoint used by the Assurator website forms."
+  },
+  "servers": [
+    {
+      "url": "https://www.assurator.ch"
+    }
+  ],
+  "paths": {
+    "/send_email.php": {
+      "post": {
+        "summary": "Submit quote request",
+        "description": "Submits a lead/contact payload from website insurance forms.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "additionalProperties": true
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Request accepted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "message": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid request"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  }
+}

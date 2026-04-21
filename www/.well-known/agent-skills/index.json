@@ -1,0 +1,47 @@
+{
+  "$schema": "https://agentskills.io/schemas/agent-skills-index.v0.2.0.json",
+  "skills": [
+    {
+      "name": "robots-txt",
+      "type": "resource",
+      "description": "Crawl and AI crawler policy for Assurator.",
+      "url": "https://www.assurator.ch/.well-known/agent-skills/robots-txt.md",
+      "sha256": "b30c0b19c2bb7487ea694c86c0fd6b9aba64ae85c056d3ff67a2330dd2203a98"
+    },
+    {
+      "name": "sitemap",
+      "type": "resource",
+      "description": "Sitemap publication and regeneration workflow.",
+      "url": "https://www.assurator.ch/.well-known/agent-skills/sitemap.md",
+      "sha256": "b07fde49c7c52457b44c931c94b8ad9c8e1c187045a45dad090d08d1d5a3365d"
+    },
+    {
+      "name": "link-headers",
+      "type": "resource",
+      "description": "Homepage Link headers for agent discovery.",
+      "url": "https://www.assurator.ch/.well-known/agent-skills/link-headers.md",
+      "sha256": "60bde2557ad1dd3a7d38b60b16b9ce072c96d98504ce7c3f0ec735cc95a9de6a"
+    },
+    {
+      "name": "markdown-negotiation",
+      "type": "resource",
+      "description": "Markdown content negotiation for homepage requests.",
+      "url": "https://www.assurator.ch/.well-known/agent-skills/markdown-negotiation.md",
+      "sha256": "358beecd9ad139d20b1c98e1d6174e00c844b236a3390233a765a3e3b74e297d"
+    },
+    {
+      "name": "api-catalog",
+      "type": "resource",
+      "description": "API discovery metadata and references.",
+      "url": "https://www.assurator.ch/.well-known/agent-skills/api-catalog.md",
+      "sha256": "a949d26e6f639e869b3feaa5828e6eb8a557d43a9bd32e56ad1ea744b56d1a3e"
+    },
+    {
+      "name": "webmcp",
+      "type": "resource",
+      "description": "Browser-level WebMCP tools exposed by the homepage.",
+      "url": "https://www.assurator.ch/.well-known/agent-skills/webmcp.md",
+      "sha256": "f4743f248602f9fc94827638cfd026800ed17d6b1e32c5f577923e994626e318"
+    }
+  ]
+}

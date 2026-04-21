@@ -1,0 +1,19 @@
+{
+  "$schema": "https://modelcontextprotocol.io/schemas/2026-03-26/server-card.json",
+  "serverInfo": {
+    "name": "Assurator Website MCP",
+    "version": "1.0.0"
+  },
+  "transports": [
+    {
+      "type": "http",
+      "url": "https://www.assurator.ch/mcp"
+    }
+  ],
+  "capabilities": {
+    "tools": {
+      "listChangedCoverage": true,
+      "requestQuote": true
+    }
+  }
+}

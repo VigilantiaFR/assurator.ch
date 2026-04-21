@@ -2,3 +2,27 @@ RewriteEngine On
 RewriteCond %{ENV:HTTPS} !on
 RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
+# Serve homepage as Markdown for agents requesting text/markdown.
+RewriteCond %{REQUEST_URI} ^/?(index\.html)?$ [NC]
+RewriteCond %{HTTP:Accept} (^|,\s*)text/markdown([;,]|$) [NC]
+RewriteRule ^(index\.html)?$ /index.agent.md [L]
+
+<IfModule mod_headers.c>
+    Header merge Vary "Accept"
+
+    # Advertise machine-discovery endpoints on homepage responses.
+    Header add Link "</.well-known/api-catalog>; rel=\"api-catalog\"" "expr=%{REQUEST_URI} =~ m#^/?(index\\.html)?$#"
+    Header add Link "</docs/api.html>; rel=\"service-doc\"" "expr=%{REQUEST_URI} =~ m#^/?(index\\.html)?$#"
+    Header add Link "</openapi.json>; rel=\"service-desc\"" "expr=%{REQUEST_URI} =~ m#^/?(index\\.html)?$#"
+    Header add Link "</.well-known/mcp/server-card.json>; rel=\"mcp-server\"" "expr=%{REQUEST_URI} =~ m#^/?(index\\.html)?$#"
+
+    # Helpful metadata for markdown-negotiated responses.
+    Header set X-Markdown-Tokens "520" "expr=%{REQUEST_URI} =~ m#^/index\\.agent\\.md$#"
+</IfModule>
+
+<IfModule mod_mime.c>
+    <Files "index.agent.md">
+        ForceType text/markdown
+    </Files>
+</IfModule>
+

@@ -1,0 +1,25 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://www.assurator.ch/send_email.php",
+      "service-desc": [
+        {
+          "href": "https://www.assurator.ch/openapi.json",
+          "type": "application/openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://www.assurator.ch/docs/api.html",
+          "type": "text/html"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://www.assurator.ch/status.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

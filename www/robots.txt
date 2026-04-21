@@ -1,0 +1,31 @@
+User-agent: *
+Allow: /
+Disallow: /send_email.php
+Disallow: /merci.html
+Disallow: /.git/
+
+# AI crawler policies
+User-agent: GPTBot
+Allow: /
+Disallow: /send_email.php
+Disallow: /merci.html
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /send_email.php
+Disallow: /merci.html
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /send_email.php
+Disallow: /merci.html
+
+User-agent: Google-Extended
+Allow: /
+Disallow: /send_email.php
+Disallow: /merci.html
+
+# Content Signals preferences
+Content-Signal: ai-train=no, search=yes, ai-input=no
+
+Sitemap: https://www.assurator.ch/sitemap.xml
